@@ -1,0 +1,24 @@
+# Environment variables & API keys
+.env
+.env.local
+*.env
+.streamlit/secrets.toml
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Temporary and log files
+*.log
+*.tmp
+~$*.xlsx
+
+# Cloudflare & tunnel binaries
+cloudflared.exe
+ngrok.exe
