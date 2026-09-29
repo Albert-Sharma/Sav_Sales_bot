@@ -39,7 +39,11 @@ class QueryEngine:
         if matched_cust:
             return self._handle_customer_query(matched_cust, q_lower)
 
-        # 3. Top / Bottom Rankings (Top N customers, top districts, top regions, top counties)
+        # 3. Portfolio-wide Opportunity Gap / Unrealized Potential
+        if any(term in q_lower for term in ["gap", "unrealized", "headroom"]):
+            return self._handle_opportunity_gap_query(q_lower)
+
+        # 4. Top / Bottom Rankings (Top N customers, top districts, top regions, top counties)
         if any(term in q_lower for term in ["top", "highest", "largest", "biggest", "bottom", "lowest", "smallest", "leaderboard", "rank"]):
             return self._handle_ranking_query(q_lower)
 
