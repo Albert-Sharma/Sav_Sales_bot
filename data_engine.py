@@ -183,7 +183,15 @@ class SalesDataEngine:
             'risk', 'risks', 'ricetec', 'increase', 'increasing', 'decrease', 'decreasing', 'analysis', 'insights',
             'explain', 'why', 'factors', 'factor', 'swot', 'outlook', 'forecast', 'target', 'targets',
             'draft', 'pitch', 'adopt', 'adoption', 'write', 'email', 'letter', 'suggest', 'propose',
-            'can', 'should', 'would', 'will', 'could', 'may', 'might', 'must', 'help'
+            'can', 'should', 'would', 'will', 'could', 'may', 'might', 'must', 'help',
+            'yes', 'no', 'true', 'false', 'none', 'not', 'but', 'both', 'either', 'neither',
+            'grew', 'grow', 'growing', 'grown', 'increased', 'decreased', 'preceding', 'following',
+            'compared', 'comparing', 'than', 'more', 'less', 'equal', 'greater', 'above', 'below',
+            'have', 'has', 'had', 'having', 'without', 'between', 'only', 'qualify', 'qualifying',
+            'qualifies', 'qualified', 'eligible', 'eligibility', 'did', 'does', 'do', 'are', 'is',
+            'was', 'were', 'been', 'being', 'year', 'years', 'yearly', 'annual', 'annually',
+            'same', 'different', 'other', 'another', 'first', 'second', 'third', 'last', 'prior',
+            'past', 'next', 'previous'
         }
 
         # 1. Check for 6+ digit ID
@@ -193,12 +201,25 @@ class SalesDataEngine:
                 return self.customer_id_map[d]
 
         # 2. Check if full customer name is in query
-        generic_words = {'farms', 'farm', 'enterprises', 'llc', 'inc', 'co', 'growers', 'group', 'planting'}
+        generic_words = {
+            'farms', 'farm', 'enterprises', 'llc', 'inc', 'co', 'growers', 'group', 'planting',
+            'partnership', 'partners', 'land', 'agri', 'agriculture', 'corp', 'company', 'ltd',
+            'plantation', 'operations', 'holdings'
+        }
         for name, cg in sorted(self.customer_name_clean_map.items(), key=lambda x: len(x[0]), reverse=True):
             if len(name) >= 4 and name not in generic_words:
                 pattern = r'\b' + re.escape(name) + r'\b'
                 if re.search(pattern, q_clean):
                     return cg
+
+        # Guard: If query is an aggregation, count, or filter query, do NOT match single candidate tokens to customer names!
+        is_query_aggregation = any(term in q_clean for term in [
+            'how many', 'how much', 'count', 'which customers', 'which accounts', 'list customers',
+            'list accounts', 'filter', 'where', '=', '<', '>', 'grew in', 'grew both', 'compared with',
+            'preceding year', 'both 2024 and 2025'
+        ])
+        if is_query_aggregation:
+            return None
 
         # 3. Extract candidate words from query (excluding stop words)
         words = re.findall(r'[a-zA-Z]{3,}', q_clean)
@@ -208,14 +229,14 @@ class SalesDataEngine:
 
         # Check candidate words against tokens of customer names (e.g. 'donny' -> 'DONNY DELINE')
         for w in candidate_words:
-            if len(w) >= 3 and w not in generic_words:
+            if len(w) >= 4 and w not in generic_words:
                 for cg in self.customer_list:
                     c_name = cg.split(' - ')[0].lower()
                     tokens = re.findall(r'[a-zA-Z]+', c_name)
                     if w in tokens:
                         return cg
 
-        # 4. Fuzzy match candidate words against customer tokens (strict cutoff=0.85)
+        # 4. Fuzzy match candidate words against customer tokens (strict cutoff=0.88)
         all_tokens = {}
         for cg in self.customer_list:
             c_name = cg.split(' - ')[0].lower()
@@ -225,13 +246,13 @@ class SalesDataEngine:
 
         for w in candidate_words:
             if len(w) >= 4:
-                close = difflib.get_close_matches(w, list(all_tokens.keys()), n=1, cutoff=0.85)
+                close = difflib.get_close_matches(w, list(all_tokens.keys()), n=1, cutoff=0.88)
                 if close:
                     return all_tokens[close[0]]
 
         # 5. Fallback fuzzy match if query itself is short (e.g. just typing 'donny delin')
-        if len(candidate_words) <= 2:
-            close = difflib.get_close_matches(' '.join(candidate_words), list(self.customer_name_clean_map.keys()), n=1, cutoff=0.7)
+        if len(candidate_words) <= 2 and not is_query_aggregation:
+            close = difflib.get_close_matches(' '.join(candidate_words), list(self.customer_name_clean_map.keys()), n=1, cutoff=0.75)
             if close:
                 return self.customer_name_clean_map[close[0]]
 

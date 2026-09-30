@@ -81,5 +81,25 @@ class TestSalesChatbot(unittest.TestCase):
             self.assertTrue(len(res["text"]) > 10, f"Query '{q}' returned too short text: {res['text']}")
             print(f"PASS: '{q}' -> Response length {len(res['text'])}")
 
+    def test_multi_condition_filters(self):
+        # Query 1: Loyalty=Yes, Volume=Yes, Super Loyalty=No (90 records, 106,983.53 acres)
+        res1 = self.query_engine.process_query("How many customers have Loyalty=Yes and Volume=Yes but Super Loyalty=No?")
+        self.assertIn("90 records", res1["text"])
+        self.assertIn("106,983.53", res1["text"])
+        self.assertNotIn("YES DEERE FARMS", res1["text"])
+
+        # Query 2: Super Loyalty=Yes, Volume=No (107 records, 30,361.73 acres)
+        res2 = self.query_engine.process_query("How many have Super Loyalty=Yes but Volume Rebate=No?")
+        self.assertIn("107 records", res2["text"])
+        self.assertIn("30,361.73", res2["text"])
+        self.assertNotIn("YES DEERE FARMS", res2["text"])
+
+    def test_consecutive_growth(self):
+        # Query 3: Consecutive growth 2023 < 2024 < 2025 (136 records, 167,868.33 acres)
+        res3 = self.query_engine.process_query("How many customers grew in both 2024 and 2025 compared with the preceding year?")
+        self.assertIn("136 records", res3["text"])
+        self.assertIn("167,868.33", res3["text"])
+        self.assertIn("SOUTHERN PLANTING CO", res3["text"])
+
 if __name__ == "__main__":
     unittest.main()

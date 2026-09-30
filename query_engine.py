@@ -34,7 +34,12 @@ class QueryEngine:
         if any(q_lower == g for g in ["hi", "hello", "hey", "help", "start", "menu"]):
             return self._handle_help_query()
 
-        # 2. Check if a specific customer is mentioned in the query FIRST
+        # 2. Advanced Multi-Condition Filter Queries & Consecutive Growth
+        filter_res = self._handle_multi_condition_query(q, q_lower)
+        if filter_res is not None:
+            return filter_res
+
+        # 3. Check if a specific customer is mentioned in the query
         matched_cust = self.de.find_customer_in_query(q)
         if matched_cust:
             return self._handle_customer_query(matched_cust, q_lower)
@@ -145,6 +150,178 @@ class QueryEngine:
                 {"label": "Districts", "value": f"{self.de.kpis['total_districts']}"},
             ]
         }
+
+    def _handle_multi_condition_query(self, query: str, q_lower: str) -> Optional[Dict[str, Any]]:
+        """
+        Handles advanced multi-condition logical filter queries such as:
+        1. Consecutive year growth (e.g. 'grew in both 2024 and 2025', '2023 < 2024 < 2025')
+        2. Boolean rebate combinations (e.g. 'Loyalty=Yes and Volume=Yes but Super Loyalty=No')
+        3. Cross-filtering conditions (State + Rebate, single or multi-rebate criteria)
+        """
+        df = self.df.copy()
+
+        # -------------------------------------------------------------
+        # 1. Consecutive Year Growth (2023 < 2024 < 2025)
+        # -------------------------------------------------------------
+        growth_patterns = [
+            r'grew\s+(?:in\s+)?both\s+2024\s+and\s+2025',
+            r'grew\s+(?:in\s+)?2024\s+and\s+2025',
+            r'growth\s+(?:in\s+)?both\s+2024\s+and\s+2025',
+            r'2023\s*<\s*2024\s*<\s*2025',
+            r'grew\s+both\s+years',
+            r'grew\s+in\s+both\s+years',
+            r'increased\s+(?:in\s+)?both\s+2024\s+and\s+2025'
+        ]
+        if any(re.search(pat, q_lower) for pat in growth_patterns) or ('grew' in q_lower and 'both' in q_lower and '2024' in q_lower and '2025' in q_lower):
+            mask = (df['2023 Acres'] > 0) & (df['2024 Acres'] > df['2023 Acres']) & (df['2025 Acres'] > df['2024 Acres'])
+            matches = df[mask].copy()
+            count = len(matches)
+            unique_cust = matches['Customer_Group__c'].nunique()
+            tot_25 = matches['2025 Acres'].sum()
+            tot_24 = matches['2024 Acres'].sum()
+            tot_23 = matches['2023 Acres'].sum()
+
+            matches['Growth_25_vs_24'] = ((matches['2025 Acres'] - matches['2024 Acres']) / matches['2024 Acres'] * 100).round(1)
+            matches_sorted = matches.sort_values('2025 Acres', ascending=False)
+
+            text = (
+                "### 📈 Consecutive Growth Analysis: 2023 < 2024 < 2025\n\n"
+                f"- **Matching Customer Records**: **{count} records** ({unique_cust} unique customer accounts)\n"
+                f"- **2025 Total Acres**: **{tot_25:,.2f} acres**\n"
+                f"- **2024 Total Acres**: `{tot_24:,.2f} acres`\n"
+                f"- **2023 Baseline Acres**: `{tot_23:,.2f} acres`\n"
+                f"- **Combined 2-Year Expansion**: `+{tot_25 - tot_23:,.2f}` acres (+{(tot_25 - tot_23)/tot_23*100:.1f}%)\n\n"
+                "**Top Consecutive Growth Growers (Ranked by 2025 Acres):**\n"
+            )
+            for i, r in matches_sorted.head(5).reset_index(drop=True).iterrows():
+                c_name = r['Customer_Group__c'].split(' - ')[0]
+                text += f"{i+1}. **{c_name}**: `2023: {r['2023 Acres']:,.1f}` $\\rightarrow$ `2024: {r['2024 Acres']:,.1f}` $\\rightarrow$ `2025: {r['2025 Acres']:,.1f}` acres (+{r['Growth_25_vs_24']}% YoY)\n"
+
+            preview_table = matches_sorted[['Customer_Group__c', 'CountyState', '2023 Acres', '2024 Acres', '2025 Acres', 'Growth_25_vs_24', 'Oppor']].head(15).copy()
+            preview_table.rename(columns={
+                'Customer_Group__c': 'Customer',
+                'CountyState': 'Location',
+                'Growth_25_vs_24': '2025 YoY %'
+            }, inplace=True)
+
+            return {
+                "text": text,
+                "table": preview_table,
+                "chart": {
+                    "type": "bar",
+                    "df": matches_sorted.head(10),
+                    "x": "Customer_Group__c",
+                    "y": "2025 Acres",
+                    "title": "Top Consistent Growth Accounts (2025 Acres)"
+                },
+                "metric_cards": [
+                    {"label": "Matching Accounts", "value": f"{count}"},
+                    {"label": "2025 Total Acres", "value": f"{tot_25:,.0f}"},
+                    {"label": "2024 Total Acres", "value": f"{tot_24:,.0f}"},
+                    {"label": "2023 Total Acres", "value": f"{tot_23:,.0f}"}
+                ]
+            }
+
+        # -------------------------------------------------------------
+        # 2. Multi-Condition Rebate Filters (Super Loyalty, Loyalty, Volume)
+        # -------------------------------------------------------------
+        rebate_conditions = {}
+
+        # Detect Super Loyalty condition
+        super_match = re.search(r'super\s*(?:loyalty)?\s*(?:=|is|:)\s*(yes|no)', q_lower)
+        if super_match:
+            rebate_conditions['Super Loyalty'] = super_match.group(1).capitalize()
+        elif any(k in q_lower for k in ['not super loyalty', 'without super loyalty', 'no super loyalty', 'super loyalty=no', 'super=no']):
+            rebate_conditions['Super Loyalty'] = 'No'
+        elif any(k in q_lower for k in ['with super loyalty', 'super loyalty=yes', 'super=yes']):
+            rebate_conditions['Super Loyalty'] = 'Yes'
+
+        # Detect Volume Rebate condition
+        vol_match = re.search(r'volume\s*(?:rebate)?\s*(?:=|is|:)\s*(yes|no)', q_lower)
+        if vol_match:
+            rebate_conditions['Volume Rebate Status'] = vol_match.group(1).capitalize()
+        elif any(k in q_lower for k in ['not volume rebate', 'without volume rebate', 'no volume rebate', 'volume rebate=no', 'volume=no']):
+            rebate_conditions['Volume Rebate Status'] = 'No'
+        elif any(k in q_lower for k in ['with volume rebate', 'volume rebate=yes', 'volume=yes']):
+            rebate_conditions['Volume Rebate Status'] = 'Yes'
+
+        # Detect Loyalty Rebate condition (ignoring super loyalty)
+        q_no_super = re.sub(r'super\s*(?:loyalty)?\s*(?:=|is|:)?\s*(?:yes|no)?', '', q_lower)
+        loyalty_match = re.search(r'(?:^|[^\w])loyalty\s*(?:rebate)?\s*(?:=|is|:)\s*(yes|no)', q_no_super)
+        if loyalty_match:
+            rebate_conditions['Loyalty Rebate Status'] = loyalty_match.group(1).capitalize()
+        elif any(k in q_no_super for k in ['not loyalty rebate', 'without loyalty rebate', 'no loyalty rebate', 'loyalty rebate=no', 'loyalty=no']):
+            rebate_conditions['Loyalty Rebate Status'] = 'No'
+        elif any(k in q_no_super for k in ['with loyalty rebate', 'loyalty rebate=yes', 'loyalty=yes']):
+            rebate_conditions['Loyalty Rebate Status'] = 'Yes'
+
+        if rebate_conditions and (len(rebate_conditions) >= 2 or '=' in q_lower or any(w in q_lower for w in ['how many', 'count', 'which', 'who', 'list', 'filter', 'where', 'but'])):
+            mask = pd.Series(True, index=df.index)
+            cond_descriptions = []
+            for col, val in rebate_conditions.items():
+                mask = mask & (df[col].astype(str).str.strip().str.capitalize() == val)
+                clean_name = "Super Loyalty" if col == "Super Loyalty" else ("Loyalty Rebate" if "Loyalty" in col else "Volume Rebate")
+                cond_descriptions.append(f"**{clean_name} = `{val}`**")
+
+            state_code = self._extract_state(q_lower)
+            if state_code:
+                mask = mask & (df['State'] == state_code)
+                cond_descriptions.append(f"**State = `{state_code}`**")
+
+            matches = df[mask].copy()
+            count = len(matches)
+            unique_cust = matches['Customer_Group__c'].nunique()
+            tot_25 = matches['2025 Acres'].sum()
+            tot_opp = matches['Oppor'].sum()
+
+            text = (
+                f"### 🎯 Filter Results: {' and '.join(cond_descriptions)}\n\n"
+                f"- **Matching Customer Records**: **{count} records**\n"
+                f"- **Unique Customer Accounts**: **{unique_cust} customers**\n"
+                f"- **2025 Total Acres**: **{tot_25:,.2f} acres**\n"
+                f"- **Market Opportunity (Oppor)**: **{tot_opp:,.2f} acres**\n"
+                f"- **Average Acres / Customer**: `{tot_25 / count if count else 0:,.1f} acres`\n\n"
+            )
+
+            if count > 0:
+                text += "**Top Matching Accounts (by 2025 Acres):**\n"
+                matches_sorted = matches.sort_values('2025 Acres', ascending=False)
+                for i, r in matches_sorted.head(5).reset_index(drop=True).iterrows():
+                    c_name = r['Customer_Group__c'].split(' - ')[0]
+                    text += f"{i+1}. **{c_name}**: `{r['2025 Acres']:,.1f}` acres ({r['CountyState']})\n"
+
+                preview_table = matches_sorted[['Customer_Group__c', 'CountyState', '2025 Acres', 'Oppor', 'Loyalty Rebate Status', 'Volume Rebate Status', 'Super Loyalty']].head(15).copy()
+                preview_table.rename(columns={
+                    'Customer_Group__c': 'Customer',
+                    'CountyState': 'Location',
+                    'Loyalty Rebate Status': 'Loyalty',
+                    'Volume Rebate Status': 'Volume',
+                    'Super Loyalty': 'Super Loyalty'
+                }, inplace=True)
+                chart_data = {
+                    "type": "bar",
+                    "df": matches_sorted.head(10),
+                    "x": "Customer_Group__c",
+                    "y": "2025 Acres",
+                    "title": "Top Accounts in Filtered Segment"
+                }
+            else:
+                preview_table = None
+                chart_data = None
+
+            return {
+                "text": text,
+                "table": preview_table,
+                "chart": chart_data,
+                "metric_cards": [
+                    {"label": "Matching Records", "value": f"{count}"},
+                    {"label": "Unique Customers", "value": f"{unique_cust}"},
+                    {"label": "2025 Total Acres", "value": f"{tot_25:,.0f}"},
+                    {"label": "Total Opportunity", "value": f"{tot_opp:,.0f}"}
+                ]
+            }
+
+        return None
 
     def _handle_overview_query(self) -> Dict[str, Any]:
         k = self.de.kpis
