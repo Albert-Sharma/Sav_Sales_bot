@@ -1,0 +1,1572 @@
+[
+  {
+    "ID": "1",
+    "Category": "Portfolio",
+    "Difficulty": "Medium",
+    "Question": "How many customer records are in the dataset?",
+    "Exact Answer": "2415 customers.",
+    "Validation Logic": "Count nonblank customer rows.",
+    "Step-by-Step Calculation": "1) Read Customer_Group__c. 2) Exclude the header and blank customer names. 3) Count every remaining row; do not deduplicate customers. 4) Return the integer count.",
+    "Reusable Dynamic Rule": "COUNTA('RiceTec Sales & Opportunity Nav'!A2:A2416)"
+  },
+  {
+    "ID": "2",
+    "Category": "Portfolio",
+    "Difficulty": "Medium",
+    "Question": "What are total acres in 2023?",
+    "Exact Answer": "1,396,773.78 acres.",
+    "Validation Logic": "Sum 2023 Acres.",
+    "Step-by-Step Calculation": "1) Select the 2023 Acres column. 2) Treat blank numeric cells as 0. 3) Sum all customer rows. 4) Round the displayed answer to 2 decimals and label it acres.",
+    "Reusable Dynamic Rule": "SUM('RiceTec Sales & Opportunity Nav'!C2:C2416)"
+  },
+  {
+    "ID": "3",
+    "Category": "Portfolio",
+    "Difficulty": "Medium",
+    "Question": "What are total acres in 2024?",
+    "Exact Answer": "1,386,265.13 acres.",
+    "Validation Logic": "Sum 2024 Acres.",
+    "Step-by-Step Calculation": "1) Select the 2024 Acres column. 2) Treat blank numeric cells as 0. 3) Sum all customer rows. 4) Round the displayed answer to 2 decimals and label it acres.",
+    "Reusable Dynamic Rule": "SUM('RiceTec Sales & Opportunity Nav'!E2:E2416)"
+  },
+  {
+    "ID": "4",
+    "Category": "Portfolio",
+    "Difficulty": "Medium",
+    "Question": "What are total acres in 2025?",
+    "Exact Answer": "1,031,945.68 acres.",
+    "Validation Logic": "Sum 2025 Acres.",
+    "Step-by-Step Calculation": "1) Select the 2025 Acres column. 2) Treat blank numeric cells as 0. 3) Sum all customer rows. 4) Round the displayed answer to 2 decimals and label it acres.",
+    "Reusable Dynamic Rule": "SUM('RiceTec Sales & Opportunity Nav'!G2:G2416)"
+  },
+  {
+    "ID": "5",
+    "Category": "Portfolio",
+    "Difficulty": "Hard",
+    "Question": "What was weighted growth from 2023 to 2024?",
+    "Exact Answer": "-0.75%, a change of -10,508.65 acres.",
+    "Validation Logic": "Total 2024 / total 2023 - 1.",
+    "Step-by-Step Calculation": "1) Sum 2023 Acres for all customers. 2) Sum 2024 Acres for all customers. 3) Calculate (2024 total / 2023 total) - 1. 4) Separately calculate 2024 total - 2023 total for the acre change. 5) Format growth as a percentage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUM('RiceTec Sales & Opportunity Nav'!E2:E2416)/SUM('RiceTec Sales & Opportunity Nav'!C2:C2416)-1"
+  },
+  {
+    "ID": "6",
+    "Category": "Portfolio",
+    "Difficulty": "Hard",
+    "Question": "What was weighted growth from 2024 to 2025?",
+    "Exact Answer": "-25.56%, a change of -354,319.45 acres.",
+    "Validation Logic": "Total 2025 / total 2024 - 1.",
+    "Step-by-Step Calculation": "1) Sum 2024 Acres for all customers. 2) Sum 2025 Acres for all customers. 3) Calculate (2025 total / 2024 total) - 1. 4) Separately calculate 2025 total - 2024 total for the acre change. 5) Format growth as a percentage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUM('RiceTec Sales & Opportunity Nav'!G2:G2416)/SUM('RiceTec Sales & Opportunity Nav'!E2:E2416)-1"
+  },
+  {
+    "ID": "7",
+    "Category": "Portfolio",
+    "Difficulty": "Medium",
+    "Question": "What is the total sales opportunity?",
+    "Exact Answer": "1,775,110.46 acres.",
+    "Validation Logic": "Sum Opportunity.",
+    "Step-by-Step Calculation": "1) Select the Oppor column. 2) Treat blanks as 0. 3) Sum all customer rows. 4) Round the result to 2 decimals.",
+    "Reusable Dynamic Rule": "SUM('RiceTec Sales & Opportunity Nav'!M2:M2416)"
+  },
+  {
+    "ID": "8",
+    "Category": "Portfolio",
+    "Difficulty": "Hard",
+    "Question": "What is the unrealized opportunity versus 2025 acres?",
+    "Exact Answer": "743,164.78 acres.",
+    "Validation Logic": "Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Sum Oppor for all customers. 2) Sum 2025 Acres for all customers. 3) Subtract 2025 total from opportunity total. 4) A positive result is unrealized acreage. 5) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUM('RiceTec Sales & Opportunity Nav'!M2:M2416)-SUM('RiceTec Sales & Opportunity Nav'!G2:G2416)"
+  },
+  {
+    "ID": "9",
+    "Category": "Portfolio",
+    "Difficulty": "Hard",
+    "Question": "What percentage of opportunity was realized in 2025?",
+    "Exact Answer": "58.13%.",
+    "Validation Logic": "2025 Acres / Opportunity.",
+    "Step-by-Step Calculation": "1) Sum 2025 Acres. 2) Sum Oppor. 3) Divide total 2025 Acres by total Oppor; do not average customer percentages. 4) If opportunity is zero, return N/A. 5) Format as a percentage to 2 decimals.",
+    "Reusable Dynamic Rule": "IFERROR(SUM('RiceTec Sales & Opportunity Nav'!G2:G2416)/SUM('RiceTec Sales & Opportunity Nav'!M2:M2416),\"N/A\")"
+  },
+  {
+    "ID": "10",
+    "Category": "Portfolio",
+    "Difficulty": "Medium",
+    "Question": "What is average 2025 acreage per customer?",
+    "Exact Answer": "427.31 acres.",
+    "Validation Logic": "2025 Acres / customer count.",
+    "Step-by-Step Calculation": "1) Count all nonblank customer rows. 2) Sum 2025 Acres, treating blanks as 0. 3) Divide the total acres by the full customer count, including customers with zero acres. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUM('RiceTec Sales & Opportunity Nav'!G2:G2416)/COUNTA('RiceTec Sales & Opportunity Nav'!A2:A2416)"
+  },
+  {
+    "ID": "11",
+    "Category": "Portfolio",
+    "Difficulty": "Medium",
+    "Question": "How many customers have positive 2025 acres?",
+    "Exact Answer": "1344 customers.",
+    "Validation Logic": "Count 2025 Acres > 0.",
+    "Step-by-Step Calculation": "1) Read 2025 Acres. 2) Treat blanks as zero. 3) Keep rows where 2025 Acres > 0. 4) Count the retained customer rows.",
+    "Reusable Dynamic Rule": "COUNTIF('RiceTec Sales & Opportunity Nav'!G2:G2416,\">0\")"
+  },
+  {
+    "ID": "12",
+    "Category": "Portfolio",
+    "Difficulty": "Medium",
+    "Question": "How many customers have zero 2025 acres?",
+    "Exact Answer": "1069 customers.",
+    "Validation Logic": "Count 2025 Acres = 0 or blank.",
+    "Step-by-Step Calculation": "1) Start with every nonblank customer row. 2) Treat blank 2025 acreage as 0. 3) Keep rows where 2025 Acres equals 0. 4) Count those rows.",
+    "Reusable Dynamic Rule": "COUNTA('RiceTec Sales & Opportunity Nav'!A2:A2416)-COUNTIF('RiceTec Sales & Opportunity Nav'!G2:G2416,\">0\")"
+  },
+  {
+    "ID": "13",
+    "Category": "Portfolio",
+    "Difficulty": "Hard",
+    "Question": "How many customers grew from 2024 to 2025?",
+    "Exact Answer": "513 customers.",
+    "Validation Logic": "Count 2025 Acres > 2024 Acres.",
+    "Step-by-Step Calculation": "1) For each customer, treat blank acreage as 0. 2) Compare 2025 Acres with 2024 Acres. 3) Keep rows where 2025 > 2024. 4) Count customers; do not sum the growth percentages.",
+    "Reusable Dynamic Rule": "SUMPRODUCT(--('RiceTec Sales & Opportunity Nav'!G2:G2416>'RiceTec Sales & Opportunity Nav'!E2:E2416))"
+  },
+  {
+    "ID": "14",
+    "Category": "Portfolio",
+    "Difficulty": "Hard",
+    "Question": "How many customers declined from 2024 to 2025?",
+    "Exact Answer": "1271 customers.",
+    "Validation Logic": "Count 2025 Acres < 2024 Acres.",
+    "Step-by-Step Calculation": "1) For each customer, treat blanks as 0. 2) Compare 2025 Acres with 2024 Acres. 3) Keep rows where 2025 < 2024. 4) Count the matching customer rows.",
+    "Reusable Dynamic Rule": "SUMPRODUCT(--('RiceTec Sales & Opportunity Nav'!G2:G2416<'RiceTec Sales & Opportunity Nav'!E2:E2416))"
+  },
+  {
+    "ID": "15",
+    "Category": "Portfolio",
+    "Difficulty": "Hard",
+    "Question": "How many customers were unchanged from 2024 to 2025?",
+    "Exact Answer": "631 customers.",
+    "Validation Logic": "Count 2025 Acres = 2024 Acres.",
+    "Step-by-Step Calculation": "1) Restrict evaluation to nonblank customer rows. 2) Treat blank acreage as 0. 3) Compare 2025 Acres to 2024 Acres. 4) Count rows where the values are equal.",
+    "Reusable Dynamic Rule": "SUMPRODUCT(--('RiceTec Sales & Opportunity Nav'!A2:A2416<>\"\"),--('RiceTec Sales & Opportunity Nav'!G2:G2416='RiceTec Sales & Opportunity Nav'!E2:E2416))"
+  },
+  {
+    "ID": "16",
+    "Category": "Portfolio",
+    "Difficulty": "Hard",
+    "Question": "How many customers grew in both consecutive years?",
+    "Exact Answer": "136 customers.",
+    "Validation Logic": "Count 2023 < 2024 < 2025.",
+    "Step-by-Step Calculation": "1) Keep customers with 2023 Acres > 0. 2) Test whether 2024 Acres > 2023 Acres. 3) Test whether 2025 Acres > 2024 Acres. 4) Count only rows satisfying all three conditions.",
+    "Reusable Dynamic Rule": "SUMPRODUCT(--('RiceTec Sales & Opportunity Nav'!C2:C2416>0),--('RiceTec Sales & Opportunity Nav'!E2:E2416>'RiceTec Sales & Opportunity Nav'!C2:C2416),--('RiceTec Sales & Opportunity Nav'!G2:G2416>'RiceTec Sales & Opportunity Nav'!E2:E2416))"
+  },
+  {
+    "ID": "17",
+    "Category": "Portfolio",
+    "Difficulty": "Hard",
+    "Question": "How many customers have at least 1,000 acres in 2025?",
+    "Exact Answer": "325 customers.",
+    "Validation Logic": "Count 2025 Acres >= 1,000.",
+    "Step-by-Step Calculation": "1) Read 2025 Acres. 2) Keep values greater than or equal to 1,000. 3) Count matching customer rows.",
+    "Reusable Dynamic Rule": "COUNTIF('RiceTec Sales & Opportunity Nav'!G2:G2416,\">=1000\")"
+  },
+  {
+    "ID": "18",
+    "Category": "Portfolio",
+    "Difficulty": "Hard",
+    "Question": "How many customers with at least 1,000 acres declined in 2025?",
+    "Exact Answer": "202 customers.",
+    "Validation Logic": "2025 >= 1,000 and below 2024.",
+    "Step-by-Step Calculation": "1) Keep customers with 2025 Acres >= 1,000. 2) Among those rows, retain customers where 2025 Acres < 2024 Acres. 3) Count the final rows.",
+    "Reusable Dynamic Rule": "SUMPRODUCT(--('RiceTec Sales & Opportunity Nav'!G2:G2416>=1000),--('RiceTec Sales & Opportunity Nav'!G2:G2416<'RiceTec Sales & Opportunity Nav'!E2:E2416))"
+  },
+  {
+    "ID": "19",
+    "Category": "Portfolio",
+    "Difficulty": "Hard",
+    "Question": "How many customers are new in 2025 with zero acres in 2023 and 2024?",
+    "Exact Answer": "105 customers.",
+    "Validation Logic": "2023=0, 2024=0, 2025>0.",
+    "Step-by-Step Calculation": "1) Treat blank acreage as 0. 2) Keep rows where 2023 Acres = 0. 3) Also require 2024 Acres = 0 and 2025 Acres > 0. 4) Count the matching customers.",
+    "Reusable Dynamic Rule": "SUMPRODUCT(--('RiceTec Sales & Opportunity Nav'!C2:C2416=0),--('RiceTec Sales & Opportunity Nav'!E2:E2416=0),--('RiceTec Sales & Opportunity Nav'!G2:G2416>0))"
+  },
+  {
+    "ID": "20",
+    "Category": "Portfolio",
+    "Difficulty": "Hard",
+    "Question": "How many customers fell from positive 2024 acres to zero in 2025?",
+    "Exact Answer": "447 customers.",
+    "Validation Logic": "2024>0 and 2025=0.",
+    "Step-by-Step Calculation": "1) Treat blank acreage as 0. 2) Keep rows where 2024 Acres > 0. 3) Also require 2025 Acres = 0. 4) Count the matching customers.",
+    "Reusable Dynamic Rule": "SUMPRODUCT(--('RiceTec Sales & Opportunity Nav'!E2:E2416>0),--('RiceTec Sales & Opportunity Nav'!G2:G2416=0))"
+  },
+  {
+    "ID": "21",
+    "Category": "Region",
+    "Difficulty": "Medium",
+    "Question": "How many customers are in region R02?",
+    "Exact Answer": "936 customers.",
+    "Validation Logic": "Group customer count by Region.",
+    "Step-by-Step Calculation": "1) Filter Region_Name__c to R02. 2) Retain every nonblank customer row in that region. 3) Count rows without deduplicating. 4) Return the count.",
+    "Reusable Dynamic Rule": "COUNTIFS('RiceTec Sales & Opportunity Nav'!V2:V2416,\"R02\",'RiceTec Sales & Opportunity Nav'!A2:A2416,\"<>\")"
+  },
+  {
+    "ID": "22",
+    "Category": "Region",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in region R02?",
+    "Exact Answer": "451,769.48 acres.",
+    "Validation Logic": "Sum 2025 Acres by Region.",
+    "Step-by-Step Calculation": "1) Filter Region_Name__c to R02. 2) Treat blank 2025 acreage as 0. 3) Sum 2025 Acres for the filtered rows. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!V2:V2416,\"R02\")"
+  },
+  {
+    "ID": "23",
+    "Category": "Region",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in region R02?",
+    "Exact Answer": "-23.10%.",
+    "Validation Logic": "Regional 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Filter Region_Name__c to R02. 2) Sum 2024 Acres in the region. 3) Sum 2025 Acres in the region. 4) Calculate total 2025 / total 2024 - 1; never average row-level YoY percentages. 5) Return N/A if the 2024 total is zero.",
+    "Reusable Dynamic Rule": "IFERROR(SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!V2:V2416,\"R02\")/SUMIFS('RiceTec Sales & Opportunity Nav'!E2:E2416,'RiceTec Sales & Opportunity Nav'!V2:V2416,\"R02\")-1,\"N/A\")"
+  },
+  {
+    "ID": "24",
+    "Category": "Region",
+    "Difficulty": "Hard",
+    "Question": "What is the opportunity gap in region R02?",
+    "Exact Answer": "291,453.33 acres.",
+    "Validation Logic": "Regional Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Filter Region_Name__c to R02. 2) Sum Oppor. 3) Sum 2025 Acres. 4) Subtract the 2025 sum from the opportunity sum. 5) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!M2:M2416,'RiceTec Sales & Opportunity Nav'!V2:V2416,\"R02\")-SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!V2:V2416,\"R02\")"
+  },
+  {
+    "ID": "25",
+    "Category": "Region",
+    "Difficulty": "Medium",
+    "Question": "How many customers are in region R01?",
+    "Exact Answer": "680 customers.",
+    "Validation Logic": "Group customer count by Region.",
+    "Step-by-Step Calculation": "1) Filter Region_Name__c to R01. 2) Retain every nonblank customer row in that region. 3) Count rows without deduplicating. 4) Return the count.",
+    "Reusable Dynamic Rule": "COUNTIFS('RiceTec Sales & Opportunity Nav'!V2:V2416,\"R01\",'RiceTec Sales & Opportunity Nav'!A2:A2416,\"<>\")"
+  },
+  {
+    "ID": "26",
+    "Category": "Region",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in region R01?",
+    "Exact Answer": "328,548.61 acres.",
+    "Validation Logic": "Sum 2025 Acres by Region.",
+    "Step-by-Step Calculation": "1) Filter Region_Name__c to R01. 2) Treat blank 2025 acreage as 0. 3) Sum 2025 Acres for the filtered rows. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!V2:V2416,\"R01\")"
+  },
+  {
+    "ID": "27",
+    "Category": "Region",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in region R01?",
+    "Exact Answer": "-30.88%.",
+    "Validation Logic": "Regional 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Filter Region_Name__c to R01. 2) Sum 2024 Acres in the region. 3) Sum 2025 Acres in the region. 4) Calculate total 2025 / total 2024 - 1; never average row-level YoY percentages. 5) Return N/A if the 2024 total is zero.",
+    "Reusable Dynamic Rule": "IFERROR(SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!V2:V2416,\"R01\")/SUMIFS('RiceTec Sales & Opportunity Nav'!E2:E2416,'RiceTec Sales & Opportunity Nav'!V2:V2416,\"R01\")-1,\"N/A\")"
+  },
+  {
+    "ID": "28",
+    "Category": "Region",
+    "Difficulty": "Hard",
+    "Question": "What is the opportunity gap in region R01?",
+    "Exact Answer": "255,692.48 acres.",
+    "Validation Logic": "Regional Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Filter Region_Name__c to R01. 2) Sum Oppor. 3) Sum 2025 Acres. 4) Subtract the 2025 sum from the opportunity sum. 5) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!M2:M2416,'RiceTec Sales & Opportunity Nav'!V2:V2416,\"R01\")-SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!V2:V2416,\"R01\")"
+  },
+  {
+    "ID": "29",
+    "Category": "Region",
+    "Difficulty": "Medium",
+    "Question": "How many customers are in region R03?",
+    "Exact Answer": "795 customers.",
+    "Validation Logic": "Group customer count by Region.",
+    "Step-by-Step Calculation": "1) Filter Region_Name__c to R03. 2) Retain every nonblank customer row in that region. 3) Count rows without deduplicating. 4) Return the count.",
+    "Reusable Dynamic Rule": "COUNTIFS('RiceTec Sales & Opportunity Nav'!V2:V2416,\"R03\",'RiceTec Sales & Opportunity Nav'!A2:A2416,\"<>\")"
+  },
+  {
+    "ID": "30",
+    "Category": "Region",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in region R03?",
+    "Exact Answer": "251,627.59 acres.",
+    "Validation Logic": "Sum 2025 Acres by Region.",
+    "Step-by-Step Calculation": "1) Filter Region_Name__c to R03. 2) Treat blank 2025 acreage as 0. 3) Sum 2025 Acres for the filtered rows. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!V2:V2416,\"R03\")"
+  },
+  {
+    "ID": "31",
+    "Category": "Region",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in region R03?",
+    "Exact Answer": "-22.20%.",
+    "Validation Logic": "Regional 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Filter Region_Name__c to R03. 2) Sum 2024 Acres in the region. 3) Sum 2025 Acres in the region. 4) Calculate total 2025 / total 2024 - 1; never average row-level YoY percentages. 5) Return N/A if the 2024 total is zero.",
+    "Reusable Dynamic Rule": "IFERROR(SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!V2:V2416,\"R03\")/SUMIFS('RiceTec Sales & Opportunity Nav'!E2:E2416,'RiceTec Sales & Opportunity Nav'!V2:V2416,\"R03\")-1,\"N/A\")"
+  },
+  {
+    "ID": "32",
+    "Category": "Region",
+    "Difficulty": "Hard",
+    "Question": "What is the opportunity gap in region R03?",
+    "Exact Answer": "195,516.17 acres.",
+    "Validation Logic": "Regional Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Filter Region_Name__c to R03. 2) Sum Oppor. 3) Sum 2025 Acres. 4) Subtract the 2025 sum from the opportunity sum. 5) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!M2:M2416,'RiceTec Sales & Opportunity Nav'!V2:V2416,\"R03\")-SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!V2:V2416,\"R03\")"
+  },
+  {
+    "ID": "33",
+    "Category": "Region",
+    "Difficulty": "Medium",
+    "Question": "How many customers are in region R04?",
+    "Exact Answer": "4 customers.",
+    "Validation Logic": "Group customer count by Region.",
+    "Step-by-Step Calculation": "1) Filter Region_Name__c to R04. 2) Retain every nonblank customer row in that region. 3) Count rows without deduplicating. 4) Return the count.",
+    "Reusable Dynamic Rule": "COUNTIFS('RiceTec Sales & Opportunity Nav'!V2:V2416,\"R04\",'RiceTec Sales & Opportunity Nav'!A2:A2416,\"<>\")"
+  },
+  {
+    "ID": "34",
+    "Category": "Region",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in region R04?",
+    "Exact Answer": "0.00 acres.",
+    "Validation Logic": "Sum 2025 Acres by Region.",
+    "Step-by-Step Calculation": "1) Filter Region_Name__c to R04. 2) Treat blank 2025 acreage as 0. 3) Sum 2025 Acres for the filtered rows. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!V2:V2416,\"R04\")"
+  },
+  {
+    "ID": "35",
+    "Category": "Region",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in region R04?",
+    "Exact Answer": "-100.00%.",
+    "Validation Logic": "Regional 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Filter Region_Name__c to R04. 2) Sum 2024 Acres in the region. 3) Sum 2025 Acres in the region. 4) Calculate total 2025 / total 2024 - 1; never average row-level YoY percentages. 5) Return N/A if the 2024 total is zero.",
+    "Reusable Dynamic Rule": "IFERROR(SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!V2:V2416,\"R04\")/SUMIFS('RiceTec Sales & Opportunity Nav'!E2:E2416,'RiceTec Sales & Opportunity Nav'!V2:V2416,\"R04\")-1,\"N/A\")"
+  },
+  {
+    "ID": "36",
+    "Category": "Region",
+    "Difficulty": "Hard",
+    "Question": "What is the opportunity gap in region R04?",
+    "Exact Answer": "502.80 acres.",
+    "Validation Logic": "Regional Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Filter Region_Name__c to R04. 2) Sum Oppor. 3) Sum 2025 Acres. 4) Subtract the 2025 sum from the opportunity sum. 5) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!M2:M2416,'RiceTec Sales & Opportunity Nav'!V2:V2416,\"R04\")-SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!V2:V2416,\"R04\")"
+  },
+  {
+    "ID": "37",
+    "Category": "Region",
+    "Difficulty": "Medium",
+    "Question": "Which region leads in 2025 acres?",
+    "Exact Answer": "R02 with 451,769.48 acres.",
+    "Validation Logic": "Rank regions by 2025 Acres.",
+    "Step-by-Step Calculation": "1) Group rows by Region_Name__c. 2) Sum 2025 Acres in each region. 3) Sort regional totals descending. 4) Return the first region and its total.",
+    "Reusable Dynamic Rule": "GROUP BY Region; ORDER BY SUM(2025 Acres) DESC; TAKE 1"
+  },
+  {
+    "ID": "38",
+    "Category": "Region",
+    "Difficulty": "Hard",
+    "Question": "Which region has the largest opportunity gap?",
+    "Exact Answer": "R02 with 291,453.33 acres.",
+    "Validation Logic": "Rank region opportunity gaps.",
+    "Step-by-Step Calculation": "1) Group rows by Region. 2) For each region calculate SUM(Oppor) - SUM(2025 Acres). 3) Sort gaps descending. 4) Return the largest gap and its region.",
+    "Reusable Dynamic Rule": "GROUP BY Region; ORDER BY SUM(Oppor)-SUM(2025 Acres) DESC; TAKE 1"
+  },
+  {
+    "ID": "39",
+    "Category": "District",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in district D07?",
+    "Exact Answer": "111,582.80 acres across 178 customers.",
+    "Validation Logic": "Sum 2025 Acres by District.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D07. 2) Count nonblank customer rows for the customer total. 3) Sum 2025 Acres, treating blanks as 0. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D07\")"
+  },
+  {
+    "ID": "40",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in district D07?",
+    "Exact Answer": "-19.85%.",
+    "Validation Logic": "District 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D07. 2) Sum 2024 Acres and 2025 Acres separately. 3) Calculate 2025 total / 2024 total - 1. 4) Do not average individual customer growth rates. 5) Return N/A for a zero 2024 base.",
+    "Reusable Dynamic Rule": "IFERROR(SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D07\")/SUMIFS('RiceTec Sales & Opportunity Nav'!E2:E2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D07\")-1,\"N/A\")"
+  },
+  {
+    "ID": "41",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What is the opportunity gap in district D07?",
+    "Exact Answer": "56,825.59 acres.",
+    "Validation Logic": "District Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D07. 2) Sum Oppor and 2025 Acres separately. 3) Subtract 2025 Acres from Oppor. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!M2:M2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D07\")-SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D07\")"
+  },
+  {
+    "ID": "42",
+    "Category": "District",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in district D09?",
+    "Exact Answer": "94,309.77 acres across 245 customers.",
+    "Validation Logic": "Sum 2025 Acres by District.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D09. 2) Count nonblank customer rows for the customer total. 3) Sum 2025 Acres, treating blanks as 0. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D09\")"
+  },
+  {
+    "ID": "43",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in district D09?",
+    "Exact Answer": "-22.26%.",
+    "Validation Logic": "District 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D09. 2) Sum 2024 Acres and 2025 Acres separately. 3) Calculate 2025 total / 2024 total - 1. 4) Do not average individual customer growth rates. 5) Return N/A for a zero 2024 base.",
+    "Reusable Dynamic Rule": "IFERROR(SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D09\")/SUMIFS('RiceTec Sales & Opportunity Nav'!E2:E2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D09\")-1,\"N/A\")"
+  },
+  {
+    "ID": "44",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What is the opportunity gap in district D09?",
+    "Exact Answer": "49,842.53 acres.",
+    "Validation Logic": "District Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D09. 2) Sum Oppor and 2025 Acres separately. 3) Subtract 2025 Acres from Oppor. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!M2:M2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D09\")-SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D09\")"
+  },
+  {
+    "ID": "45",
+    "Category": "District",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in district D11?",
+    "Exact Answer": "89,208.77 acres across 199 customers.",
+    "Validation Logic": "Sum 2025 Acres by District.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D11. 2) Count nonblank customer rows for the customer total. 3) Sum 2025 Acres, treating blanks as 0. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D11\")"
+  },
+  {
+    "ID": "46",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in district D11?",
+    "Exact Answer": "-23.15%.",
+    "Validation Logic": "District 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D11. 2) Sum 2024 Acres and 2025 Acres separately. 3) Calculate 2025 total / 2024 total - 1. 4) Do not average individual customer growth rates. 5) Return N/A for a zero 2024 base.",
+    "Reusable Dynamic Rule": "IFERROR(SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D11\")/SUMIFS('RiceTec Sales & Opportunity Nav'!E2:E2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D11\")-1,\"N/A\")"
+  },
+  {
+    "ID": "47",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What is the opportunity gap in district D11?",
+    "Exact Answer": "64,416.76 acres.",
+    "Validation Logic": "District Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D11. 2) Sum Oppor and 2025 Acres separately. 3) Subtract 2025 Acres from Oppor. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!M2:M2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D11\")-SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D11\")"
+  },
+  {
+    "ID": "48",
+    "Category": "District",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in district D08?",
+    "Exact Answer": "88,529.67 acres across 140 customers.",
+    "Validation Logic": "Sum 2025 Acres by District.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D08. 2) Count nonblank customer rows for the customer total. 3) Sum 2025 Acres, treating blanks as 0. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D08\")"
+  },
+  {
+    "ID": "49",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in district D08?",
+    "Exact Answer": "-18.31%.",
+    "Validation Logic": "District 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D08. 2) Sum 2024 Acres and 2025 Acres separately. 3) Calculate 2025 total / 2024 total - 1. 4) Do not average individual customer growth rates. 5) Return N/A for a zero 2024 base.",
+    "Reusable Dynamic Rule": "IFERROR(SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D08\")/SUMIFS('RiceTec Sales & Opportunity Nav'!E2:E2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D08\")-1,\"N/A\")"
+  },
+  {
+    "ID": "50",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What is the opportunity gap in district D08?",
+    "Exact Answer": "51,040.09 acres.",
+    "Validation Logic": "District Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D08. 2) Sum Oppor and 2025 Acres separately. 3) Subtract 2025 Acres from Oppor. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!M2:M2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D08\")-SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D08\")"
+  },
+  {
+    "ID": "51",
+    "Category": "District",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in district D13?",
+    "Exact Answer": "80,166.88 acres across 243 customers.",
+    "Validation Logic": "Sum 2025 Acres by District.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D13. 2) Count nonblank customer rows for the customer total. 3) Sum 2025 Acres, treating blanks as 0. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D13\")"
+  },
+  {
+    "ID": "52",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in district D13?",
+    "Exact Answer": "-17.38%.",
+    "Validation Logic": "District 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D13. 2) Sum 2024 Acres and 2025 Acres separately. 3) Calculate 2025 total / 2024 total - 1. 4) Do not average individual customer growth rates. 5) Return N/A for a zero 2024 base.",
+    "Reusable Dynamic Rule": "IFERROR(SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D13\")/SUMIFS('RiceTec Sales & Opportunity Nav'!E2:E2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D13\")-1,\"N/A\")"
+  },
+  {
+    "ID": "53",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What is the opportunity gap in district D13?",
+    "Exact Answer": "45,975.17 acres.",
+    "Validation Logic": "District Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D13. 2) Sum Oppor and 2025 Acres separately. 3) Subtract 2025 Acres from Oppor. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!M2:M2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D13\")-SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D13\")"
+  },
+  {
+    "ID": "54",
+    "Category": "District",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in district D10?",
+    "Exact Answer": "79,937.18 acres across 179 customers.",
+    "Validation Logic": "Sum 2025 Acres by District.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D10. 2) Count nonblank customer rows for the customer total. 3) Sum 2025 Acres, treating blanks as 0. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D10\")"
+  },
+  {
+    "ID": "55",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in district D10?",
+    "Exact Answer": "-27.28%.",
+    "Validation Logic": "District 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D10. 2) Sum 2024 Acres and 2025 Acres separately. 3) Calculate 2025 total / 2024 total - 1. 4) Do not average individual customer growth rates. 5) Return N/A for a zero 2024 base.",
+    "Reusable Dynamic Rule": "IFERROR(SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D10\")/SUMIFS('RiceTec Sales & Opportunity Nav'!E2:E2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D10\")-1,\"N/A\")"
+  },
+  {
+    "ID": "56",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What is the opportunity gap in district D10?",
+    "Exact Answer": "61,844.99 acres.",
+    "Validation Logic": "District Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D10. 2) Sum Oppor and 2025 Acres separately. 3) Subtract 2025 Acres from Oppor. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!M2:M2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D10\")-SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D10\")"
+  },
+  {
+    "ID": "57",
+    "Category": "District",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in district D03?",
+    "Exact Answer": "76,970.93 acres across 133 customers.",
+    "Validation Logic": "Sum 2025 Acres by District.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D03. 2) Count nonblank customer rows for the customer total. 3) Sum 2025 Acres, treating blanks as 0. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D03\")"
+  },
+  {
+    "ID": "58",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in district D03?",
+    "Exact Answer": "-29.64%.",
+    "Validation Logic": "District 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D03. 2) Sum 2024 Acres and 2025 Acres separately. 3) Calculate 2025 total / 2024 total - 1. 4) Do not average individual customer growth rates. 5) Return N/A for a zero 2024 base.",
+    "Reusable Dynamic Rule": "IFERROR(SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D03\")/SUMIFS('RiceTec Sales & Opportunity Nav'!E2:E2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D03\")-1,\"N/A\")"
+  },
+  {
+    "ID": "59",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What is the opportunity gap in district D03?",
+    "Exact Answer": "50,707.05 acres.",
+    "Validation Logic": "District Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D03. 2) Sum Oppor and 2025 Acres separately. 3) Subtract 2025 Acres from Oppor. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!M2:M2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D03\")-SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D03\")"
+  },
+  {
+    "ID": "60",
+    "Category": "District",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in district D02?",
+    "Exact Answer": "71,333.38 acres across 138 customers.",
+    "Validation Logic": "Sum 2025 Acres by District.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D02. 2) Count nonblank customer rows for the customer total. 3) Sum 2025 Acres, treating blanks as 0. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D02\")"
+  },
+  {
+    "ID": "61",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in district D02?",
+    "Exact Answer": "-21.13%.",
+    "Validation Logic": "District 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D02. 2) Sum 2024 Acres and 2025 Acres separately. 3) Calculate 2025 total / 2024 total - 1. 4) Do not average individual customer growth rates. 5) Return N/A for a zero 2024 base.",
+    "Reusable Dynamic Rule": "IFERROR(SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D02\")/SUMIFS('RiceTec Sales & Opportunity Nav'!E2:E2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D02\")-1,\"N/A\")"
+  },
+  {
+    "ID": "62",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What is the opportunity gap in district D02?",
+    "Exact Answer": "35,981.65 acres.",
+    "Validation Logic": "District Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D02. 2) Sum Oppor and 2025 Acres separately. 3) Subtract 2025 Acres from Oppor. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!M2:M2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D02\")-SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D02\")"
+  },
+  {
+    "ID": "63",
+    "Category": "District",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in district D06?",
+    "Exact Answer": "69,322.62 acres across 172 customers.",
+    "Validation Logic": "Sum 2025 Acres by District.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D06. 2) Count nonblank customer rows for the customer total. 3) Sum 2025 Acres, treating blanks as 0. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D06\")"
+  },
+  {
+    "ID": "64",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in district D06?",
+    "Exact Answer": "-30.19%.",
+    "Validation Logic": "District 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D06. 2) Sum 2024 Acres and 2025 Acres separately. 3) Calculate 2025 total / 2024 total - 1. 4) Do not average individual customer growth rates. 5) Return N/A for a zero 2024 base.",
+    "Reusable Dynamic Rule": "IFERROR(SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D06\")/SUMIFS('RiceTec Sales & Opportunity Nav'!E2:E2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D06\")-1,\"N/A\")"
+  },
+  {
+    "ID": "65",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What is the opportunity gap in district D06?",
+    "Exact Answer": "63,611.53 acres.",
+    "Validation Logic": "District Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D06. 2) Sum Oppor and 2025 Acres separately. 3) Subtract 2025 Acres from Oppor. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!M2:M2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D06\")-SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D06\")"
+  },
+  {
+    "ID": "66",
+    "Category": "District",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in district D05?",
+    "Exact Answer": "68,986.26 acres across 170 customers.",
+    "Validation Logic": "Sum 2025 Acres by District.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D05. 2) Count nonblank customer rows for the customer total. 3) Sum 2025 Acres, treating blanks as 0. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D05\")"
+  },
+  {
+    "ID": "67",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in district D05?",
+    "Exact Answer": "-45.08%.",
+    "Validation Logic": "District 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D05. 2) Sum 2024 Acres and 2025 Acres separately. 3) Calculate 2025 total / 2024 total - 1. 4) Do not average individual customer growth rates. 5) Return N/A for a zero 2024 base.",
+    "Reusable Dynamic Rule": "IFERROR(SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D05\")/SUMIFS('RiceTec Sales & Opportunity Nav'!E2:E2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D05\")-1,\"N/A\")"
+  },
+  {
+    "ID": "68",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What is the opportunity gap in district D05?",
+    "Exact Answer": "88,432.27 acres.",
+    "Validation Logic": "District Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D05. 2) Sum Oppor and 2025 Acres separately. 3) Subtract 2025 Acres from Oppor. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!M2:M2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D05\")-SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D05\")"
+  },
+  {
+    "ID": "69",
+    "Category": "District",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in district D01?",
+    "Exact Answer": "65,118.36 acres across 142 customers.",
+    "Validation Logic": "Sum 2025 Acres by District.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D01. 2) Count nonblank customer rows for the customer total. 3) Sum 2025 Acres, treating blanks as 0. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D01\")"
+  },
+  {
+    "ID": "70",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in district D01?",
+    "Exact Answer": "-22.03%.",
+    "Validation Logic": "District 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D01. 2) Sum 2024 Acres and 2025 Acres separately. 3) Calculate 2025 total / 2024 total - 1. 4) Do not average individual customer growth rates. 5) Return N/A for a zero 2024 base.",
+    "Reusable Dynamic Rule": "IFERROR(SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D01\")/SUMIFS('RiceTec Sales & Opportunity Nav'!E2:E2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D01\")-1,\"N/A\")"
+  },
+  {
+    "ID": "71",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What is the opportunity gap in district D01?",
+    "Exact Answer": "45,746.22 acres.",
+    "Validation Logic": "District Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D01. 2) Sum Oppor and 2025 Acres separately. 3) Subtract 2025 Acres from Oppor. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!M2:M2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D01\")-SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D01\")"
+  },
+  {
+    "ID": "72",
+    "Category": "District",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in district D15?",
+    "Exact Answer": "46,140.28 acres across 158 customers.",
+    "Validation Logic": "Sum 2025 Acres by District.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D15. 2) Count nonblank customer rows for the customer total. 3) Sum 2025 Acres, treating blanks as 0. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D15\")"
+  },
+  {
+    "ID": "73",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in district D15?",
+    "Exact Answer": "-26.69%.",
+    "Validation Logic": "District 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D15. 2) Sum 2024 Acres and 2025 Acres separately. 3) Calculate 2025 total / 2024 total - 1. 4) Do not average individual customer growth rates. 5) Return N/A for a zero 2024 base.",
+    "Reusable Dynamic Rule": "IFERROR(SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D15\")/SUMIFS('RiceTec Sales & Opportunity Nav'!E2:E2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D15\")-1,\"N/A\")"
+  },
+  {
+    "ID": "74",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What is the opportunity gap in district D15?",
+    "Exact Answer": "37,922.86 acres.",
+    "Validation Logic": "District Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D15. 2) Sum Oppor and 2025 Acres separately. 3) Subtract 2025 Acres from Oppor. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!M2:M2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D15\")-SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D15\")"
+  },
+  {
+    "ID": "75",
+    "Category": "District",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in district D04?",
+    "Exact Answer": "46,139.68 acres across 97 customers.",
+    "Validation Logic": "Sum 2025 Acres by District.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D04. 2) Count nonblank customer rows for the customer total. 3) Sum 2025 Acres, treating blanks as 0. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D04\")"
+  },
+  {
+    "ID": "76",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in district D04?",
+    "Exact Answer": "-30.49%.",
+    "Validation Logic": "District 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D04. 2) Sum 2024 Acres and 2025 Acres separately. 3) Calculate 2025 total / 2024 total - 1. 4) Do not average individual customer growth rates. 5) Return N/A for a zero 2024 base.",
+    "Reusable Dynamic Rule": "IFERROR(SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D04\")/SUMIFS('RiceTec Sales & Opportunity Nav'!E2:E2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D04\")-1,\"N/A\")"
+  },
+  {
+    "ID": "77",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What is the opportunity gap in district D04?",
+    "Exact Answer": "34,825.29 acres.",
+    "Validation Logic": "District Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D04. 2) Sum Oppor and 2025 Acres separately. 3) Subtract 2025 Acres from Oppor. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!M2:M2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D04\")-SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D04\")"
+  },
+  {
+    "ID": "78",
+    "Category": "District",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in district D12?",
+    "Exact Answer": "36,111.66 acres across 195 customers.",
+    "Validation Logic": "Sum 2025 Acres by District.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D12. 2) Count nonblank customer rows for the customer total. 3) Sum 2025 Acres, treating blanks as 0. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D12\")"
+  },
+  {
+    "ID": "79",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in district D12?",
+    "Exact Answer": "-23.78%.",
+    "Validation Logic": "District 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D12. 2) Sum 2024 Acres and 2025 Acres separately. 3) Calculate 2025 total / 2024 total - 1. 4) Do not average individual customer growth rates. 5) Return N/A for a zero 2024 base.",
+    "Reusable Dynamic Rule": "IFERROR(SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D12\")/SUMIFS('RiceTec Sales & Opportunity Nav'!E2:E2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D12\")-1,\"N/A\")"
+  },
+  {
+    "ID": "80",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What is the opportunity gap in district D12?",
+    "Exact Answer": "47,201.38 acres.",
+    "Validation Logic": "District Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D12. 2) Sum Oppor and 2025 Acres separately. 3) Subtract 2025 Acres from Oppor. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!M2:M2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D12\")-SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D12\")"
+  },
+  {
+    "ID": "81",
+    "Category": "District",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in district D14?",
+    "Exact Answer": "8,087.44 acres across 22 customers.",
+    "Validation Logic": "Sum 2025 Acres by District.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D14. 2) Count nonblank customer rows for the customer total. 3) Sum 2025 Acres, treating blanks as 0. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D14\")"
+  },
+  {
+    "ID": "82",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in district D14?",
+    "Exact Answer": "-13.40%.",
+    "Validation Logic": "District 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D14. 2) Sum 2024 Acres and 2025 Acres separately. 3) Calculate 2025 total / 2024 total - 1. 4) Do not average individual customer growth rates. 5) Return N/A for a zero 2024 base.",
+    "Reusable Dynamic Rule": "IFERROR(SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D14\")/SUMIFS('RiceTec Sales & Opportunity Nav'!E2:E2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D14\")-1,\"N/A\")"
+  },
+  {
+    "ID": "83",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What is the opportunity gap in district D14?",
+    "Exact Answer": "8,288.60 acres.",
+    "Validation Logic": "District Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D14. 2) Sum Oppor and 2025 Acres separately. 3) Subtract 2025 Acres from Oppor. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!M2:M2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D14\")-SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D14\")"
+  },
+  {
+    "ID": "84",
+    "Category": "District",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in district D16?",
+    "Exact Answer": "0.00 acres across 4 customers.",
+    "Validation Logic": "Sum 2025 Acres by District.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D16. 2) Count nonblank customer rows for the customer total. 3) Sum 2025 Acres, treating blanks as 0. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D16\")"
+  },
+  {
+    "ID": "85",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in district D16?",
+    "Exact Answer": "-100.00%.",
+    "Validation Logic": "District 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D16. 2) Sum 2024 Acres and 2025 Acres separately. 3) Calculate 2025 total / 2024 total - 1. 4) Do not average individual customer growth rates. 5) Return N/A for a zero 2024 base.",
+    "Reusable Dynamic Rule": "IFERROR(SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D16\")/SUMIFS('RiceTec Sales & Opportunity Nav'!E2:E2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D16\")-1,\"N/A\")"
+  },
+  {
+    "ID": "86",
+    "Category": "District",
+    "Difficulty": "Hard",
+    "Question": "What is the opportunity gap in district D16?",
+    "Exact Answer": "502.80 acres.",
+    "Validation Logic": "District Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) Filter District_Name__c to D16. 2) Sum Oppor and 2025 Acres separately. 3) Subtract 2025 Acres from Oppor. 4) Round to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!M2:M2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D16\")-SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!U2:U2416,\"D16\")"
+  },
+  {
+    "ID": "87",
+    "Category": "State",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in AR?",
+    "Exact Answer": "700,782.64 acres across 1428 customers.",
+    "Validation Logic": "Sum 2025 Acres by parsed state.",
+    "Step-by-Step Calculation": "1) Parse the state abbreviation from the text after the final comma in CountyState. 2) Filter parsed state to AR. 3) Count customers and sum 2025 Acres. 4) Treat blank acreage as 0 and round the sum to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMPRODUCT(--(RIGHT(TRIM('RiceTec Sales & Opportunity Nav'!B2:B2416),2)=\"AR\"),'RiceTec Sales & Opportunity Nav'!G2:G2416)"
+  },
+  {
+    "ID": "88",
+    "Category": "State",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in AR?",
+    "Exact Answer": "-27.63%.",
+    "Validation Logic": "State 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Parse state from CountyState and filter to AR. 2) Sum 2024 Acres and 2025 Acres for the state. 3) Calculate state 2025 total / state 2024 total - 1. 4) Do not average row growth rates. 5) Return N/A if the state 2024 total is zero.",
+    "Reusable Dynamic Rule": "StateGrowth(AR) = SUM(2025 Acres where State=AR) / SUM(2024 Acres where State=AR) - 1"
+  },
+  {
+    "ID": "89",
+    "Category": "State",
+    "Difficulty": "Hard",
+    "Question": "What percentage of portfolio 2025 acres came from AR?",
+    "Exact Answer": "67.91%.",
+    "Validation Logic": "State 2025 Acres / portfolio total.",
+    "Step-by-Step Calculation": "1) Parse state from CountyState. 2) Sum 2025 Acres for AR. 3) Sum 2025 Acres for all customers. 4) Divide the AR total by the portfolio total. 5) Format as a percentage to 2 decimals.",
+    "Reusable Dynamic Rule": "StateShare(AR) = SUM(2025 Acres where State=AR) / SUM(all 2025 Acres)"
+  },
+  {
+    "ID": "90",
+    "Category": "State",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in LA?",
+    "Exact Answer": "116,278.54 acres across 441 customers.",
+    "Validation Logic": "Sum 2025 Acres by parsed state.",
+    "Step-by-Step Calculation": "1) Parse the state abbreviation from the text after the final comma in CountyState. 2) Filter parsed state to LA. 3) Count customers and sum 2025 Acres. 4) Treat blank acreage as 0 and round the sum to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMPRODUCT(--(RIGHT(TRIM('RiceTec Sales & Opportunity Nav'!B2:B2416),2)=\"LA\"),'RiceTec Sales & Opportunity Nav'!G2:G2416)"
+  },
+  {
+    "ID": "91",
+    "Category": "State",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in LA?",
+    "Exact Answer": "-19.59%.",
+    "Validation Logic": "State 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Parse state from CountyState and filter to LA. 2) Sum 2024 Acres and 2025 Acres for the state. 3) Calculate state 2025 total / state 2024 total - 1. 4) Do not average row growth rates. 5) Return N/A if the state 2024 total is zero.",
+    "Reusable Dynamic Rule": "StateGrowth(LA) = SUM(2025 Acres where State=LA) / SUM(2024 Acres where State=LA) - 1"
+  },
+  {
+    "ID": "92",
+    "Category": "State",
+    "Difficulty": "Hard",
+    "Question": "What percentage of portfolio 2025 acres came from LA?",
+    "Exact Answer": "11.27%.",
+    "Validation Logic": "State 2025 Acres / portfolio total.",
+    "Step-by-Step Calculation": "1) Parse state from CountyState. 2) Sum 2025 Acres for LA. 3) Sum 2025 Acres for all customers. 4) Divide the LA total by the portfolio total. 5) Format as a percentage to 2 decimals.",
+    "Reusable Dynamic Rule": "StateShare(LA) = SUM(2025 Acres where State=LA) / SUM(all 2025 Acres)"
+  },
+  {
+    "ID": "93",
+    "Category": "State",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in MO?",
+    "Exact Answer": "99,496.64 acres across 219 customers.",
+    "Validation Logic": "Sum 2025 Acres by parsed state.",
+    "Step-by-Step Calculation": "1) Parse the state abbreviation from the text after the final comma in CountyState. 2) Filter parsed state to MO. 3) Count customers and sum 2025 Acres. 4) Treat blank acreage as 0 and round the sum to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMPRODUCT(--(RIGHT(TRIM('RiceTec Sales & Opportunity Nav'!B2:B2416),2)=\"MO\"),'RiceTec Sales & Opportunity Nav'!G2:G2416)"
+  },
+  {
+    "ID": "94",
+    "Category": "State",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in MO?",
+    "Exact Answer": "-21.90%.",
+    "Validation Logic": "State 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Parse state from CountyState and filter to MO. 2) Sum 2024 Acres and 2025 Acres for the state. 3) Calculate state 2025 total / state 2024 total - 1. 4) Do not average row growth rates. 5) Return N/A if the state 2024 total is zero.",
+    "Reusable Dynamic Rule": "StateGrowth(MO) = SUM(2025 Acres where State=MO) / SUM(2024 Acres where State=MO) - 1"
+  },
+  {
+    "ID": "95",
+    "Category": "State",
+    "Difficulty": "Hard",
+    "Question": "What percentage of portfolio 2025 acres came from MO?",
+    "Exact Answer": "9.64%.",
+    "Validation Logic": "State 2025 Acres / portfolio total.",
+    "Step-by-Step Calculation": "1) Parse state from CountyState. 2) Sum 2025 Acres for MO. 3) Sum 2025 Acres for all customers. 4) Divide the MO total by the portfolio total. 5) Format as a percentage to 2 decimals.",
+    "Reusable Dynamic Rule": "StateShare(MO) = SUM(2025 Acres where State=MO) / SUM(all 2025 Acres)"
+  },
+  {
+    "ID": "96",
+    "Category": "State",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in MS?",
+    "Exact Answer": "67,723.98 acres across 155 customers.",
+    "Validation Logic": "Sum 2025 Acres by parsed state.",
+    "Step-by-Step Calculation": "1) Parse the state abbreviation from the text after the final comma in CountyState. 2) Filter parsed state to MS. 3) Count customers and sum 2025 Acres. 4) Treat blank acreage as 0 and round the sum to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMPRODUCT(--(RIGHT(TRIM('RiceTec Sales & Opportunity Nav'!B2:B2416),2)=\"MS\"),'RiceTec Sales & Opportunity Nav'!G2:G2416)"
+  },
+  {
+    "ID": "97",
+    "Category": "State",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in MS?",
+    "Exact Answer": "-17.18%.",
+    "Validation Logic": "State 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Parse state from CountyState and filter to MS. 2) Sum 2024 Acres and 2025 Acres for the state. 3) Calculate state 2025 total / state 2024 total - 1. 4) Do not average row growth rates. 5) Return N/A if the state 2024 total is zero.",
+    "Reusable Dynamic Rule": "StateGrowth(MS) = SUM(2025 Acres where State=MS) / SUM(2024 Acres where State=MS) - 1"
+  },
+  {
+    "ID": "98",
+    "Category": "State",
+    "Difficulty": "Hard",
+    "Question": "What percentage of portfolio 2025 acres came from MS?",
+    "Exact Answer": "6.56%.",
+    "Validation Logic": "State 2025 Acres / portfolio total.",
+    "Step-by-Step Calculation": "1) Parse state from CountyState. 2) Sum 2025 Acres for MS. 3) Sum 2025 Acres for all customers. 4) Divide the MS total by the portfolio total. 5) Format as a percentage to 2 decimals.",
+    "Reusable Dynamic Rule": "StateShare(MS) = SUM(2025 Acres where State=MS) / SUM(all 2025 Acres)"
+  },
+  {
+    "ID": "99",
+    "Category": "State",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in TX?",
+    "Exact Answer": "46,390.28 acres across 163 customers.",
+    "Validation Logic": "Sum 2025 Acres by parsed state.",
+    "Step-by-Step Calculation": "1) Parse the state abbreviation from the text after the final comma in CountyState. 2) Filter parsed state to TX. 3) Count customers and sum 2025 Acres. 4) Treat blank acreage as 0 and round the sum to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMPRODUCT(--(RIGHT(TRIM('RiceTec Sales & Opportunity Nav'!B2:B2416),2)=\"TX\"),'RiceTec Sales & Opportunity Nav'!G2:G2416)"
+  },
+  {
+    "ID": "100",
+    "Category": "State",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in TX?",
+    "Exact Answer": "-26.52%.",
+    "Validation Logic": "State 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Parse state from CountyState and filter to TX. 2) Sum 2024 Acres and 2025 Acres for the state. 3) Calculate state 2025 total / state 2024 total - 1. 4) Do not average row growth rates. 5) Return N/A if the state 2024 total is zero.",
+    "Reusable Dynamic Rule": "StateGrowth(TX) = SUM(2025 Acres where State=TX) / SUM(2024 Acres where State=TX) - 1"
+  },
+  {
+    "ID": "101",
+    "Category": "State",
+    "Difficulty": "Hard",
+    "Question": "What percentage of portfolio 2025 acres came from TX?",
+    "Exact Answer": "4.50%.",
+    "Validation Logic": "State 2025 Acres / portfolio total.",
+    "Step-by-Step Calculation": "1) Parse state from CountyState. 2) Sum 2025 Acres for TX. 3) Sum 2025 Acres for all customers. 4) Divide the TX total by the portfolio total. 5) Format as a percentage to 2 decimals.",
+    "Reusable Dynamic Rule": "StateShare(TX) = SUM(2025 Acres where State=TX) / SUM(all 2025 Acres)"
+  },
+  {
+    "ID": "102",
+    "Category": "State",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in IL?",
+    "Exact Answer": "807.60 acres across 1 customers.",
+    "Validation Logic": "Sum 2025 Acres by parsed state.",
+    "Step-by-Step Calculation": "1) Parse the state abbreviation from the text after the final comma in CountyState. 2) Filter parsed state to IL. 3) Count customers and sum 2025 Acres. 4) Treat blank acreage as 0 and round the sum to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMPRODUCT(--(RIGHT(TRIM('RiceTec Sales & Opportunity Nav'!B2:B2416),2)=\"IL\"),'RiceTec Sales & Opportunity Nav'!G2:G2416)"
+  },
+  {
+    "ID": "103",
+    "Category": "State",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in IL?",
+    "Exact Answer": "44.21%.",
+    "Validation Logic": "State 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Parse state from CountyState and filter to IL. 2) Sum 2024 Acres and 2025 Acres for the state. 3) Calculate state 2025 total / state 2024 total - 1. 4) Do not average row growth rates. 5) Return N/A if the state 2024 total is zero.",
+    "Reusable Dynamic Rule": "StateGrowth(IL) = SUM(2025 Acres where State=IL) / SUM(2024 Acres where State=IL) - 1"
+  },
+  {
+    "ID": "104",
+    "Category": "State",
+    "Difficulty": "Hard",
+    "Question": "What percentage of portfolio 2025 acres came from IL?",
+    "Exact Answer": "0.08%.",
+    "Validation Logic": "State 2025 Acres / portfolio total.",
+    "Step-by-Step Calculation": "1) Parse state from CountyState. 2) Sum 2025 Acres for IL. 3) Sum 2025 Acres for all customers. 4) Divide the IL total by the portfolio total. 5) Format as a percentage to 2 decimals.",
+    "Reusable Dynamic Rule": "StateShare(IL) = SUM(2025 Acres where State=IL) / SUM(all 2025 Acres)"
+  },
+  {
+    "ID": "105",
+    "Category": "State",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in TN?",
+    "Exact Answer": "466.00 acres across 6 customers.",
+    "Validation Logic": "Sum 2025 Acres by parsed state.",
+    "Step-by-Step Calculation": "1) Parse the state abbreviation from the text after the final comma in CountyState. 2) Filter parsed state to TN. 3) Count customers and sum 2025 Acres. 4) Treat blank acreage as 0 and round the sum to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMPRODUCT(--(RIGHT(TRIM('RiceTec Sales & Opportunity Nav'!B2:B2416),2)=\"TN\"),'RiceTec Sales & Opportunity Nav'!G2:G2416)"
+  },
+  {
+    "ID": "106",
+    "Category": "State",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in TN?",
+    "Exact Answer": "11.48%.",
+    "Validation Logic": "State 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Parse state from CountyState and filter to TN. 2) Sum 2024 Acres and 2025 Acres for the state. 3) Calculate state 2025 total / state 2024 total - 1. 4) Do not average row growth rates. 5) Return N/A if the state 2024 total is zero.",
+    "Reusable Dynamic Rule": "StateGrowth(TN) = SUM(2025 Acres where State=TN) / SUM(2024 Acres where State=TN) - 1"
+  },
+  {
+    "ID": "107",
+    "Category": "State",
+    "Difficulty": "Hard",
+    "Question": "What percentage of portfolio 2025 acres came from TN?",
+    "Exact Answer": "0.05%.",
+    "Validation Logic": "State 2025 Acres / portfolio total.",
+    "Step-by-Step Calculation": "1) Parse state from CountyState. 2) Sum 2025 Acres for TN. 3) Sum 2025 Acres for all customers. 4) Divide the TN total by the portfolio total. 5) Format as a percentage to 2 decimals.",
+    "Reusable Dynamic Rule": "StateShare(TN) = SUM(2025 Acres where State=TN) / SUM(all 2025 Acres)"
+  },
+  {
+    "ID": "108",
+    "Category": "State",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in GA?",
+    "Exact Answer": "0.00 acres across 1 customers.",
+    "Validation Logic": "Sum 2025 Acres by parsed state.",
+    "Step-by-Step Calculation": "1) Parse the state abbreviation from the text after the final comma in CountyState. 2) Filter parsed state to GA. 3) Count customers and sum 2025 Acres. 4) Treat blank acreage as 0 and round the sum to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMPRODUCT(--(RIGHT(TRIM('RiceTec Sales & Opportunity Nav'!B2:B2416),2)=\"GA\"),'RiceTec Sales & Opportunity Nav'!G2:G2416)"
+  },
+  {
+    "ID": "109",
+    "Category": "State",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in GA?",
+    "Exact Answer": "-100.00%.",
+    "Validation Logic": "State 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Parse state from CountyState and filter to GA. 2) Sum 2024 Acres and 2025 Acres for the state. 3) Calculate state 2025 total / state 2024 total - 1. 4) Do not average row growth rates. 5) Return N/A if the state 2024 total is zero.",
+    "Reusable Dynamic Rule": "StateGrowth(GA) = SUM(2025 Acres where State=GA) / SUM(2024 Acres where State=GA) - 1"
+  },
+  {
+    "ID": "110",
+    "Category": "State",
+    "Difficulty": "Hard",
+    "Question": "What percentage of portfolio 2025 acres came from GA?",
+    "Exact Answer": "0.00%.",
+    "Validation Logic": "State 2025 Acres / portfolio total.",
+    "Step-by-Step Calculation": "1) Parse state from CountyState. 2) Sum 2025 Acres for GA. 3) Sum 2025 Acres for all customers. 4) Divide the GA total by the portfolio total. 5) Format as a percentage to 2 decimals.",
+    "Reusable Dynamic Rule": "StateShare(GA) = SUM(2025 Acres where State=GA) / SUM(all 2025 Acres)"
+  },
+  {
+    "ID": "111",
+    "Category": "State",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 acres in FL?",
+    "Exact Answer": "0.00 acres across 1 customers.",
+    "Validation Logic": "Sum 2025 Acres by parsed state.",
+    "Step-by-Step Calculation": "1) Parse the state abbreviation from the text after the final comma in CountyState. 2) Filter parsed state to FL. 3) Count customers and sum 2025 Acres. 4) Treat blank acreage as 0 and round the sum to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMPRODUCT(--(RIGHT(TRIM('RiceTec Sales & Opportunity Nav'!B2:B2416),2)=\"FL\"),'RiceTec Sales & Opportunity Nav'!G2:G2416)"
+  },
+  {
+    "ID": "112",
+    "Category": "State",
+    "Difficulty": "Hard",
+    "Question": "What was weighted 2025 growth in FL?",
+    "Exact Answer": "Not applicable.",
+    "Validation Logic": "State 2025 / 2024 - 1.",
+    "Step-by-Step Calculation": "1) Parse state from CountyState and filter to FL. 2) Sum 2024 Acres and 2025 Acres for the state. 3) Calculate state 2025 total / state 2024 total - 1. 4) Do not average row growth rates. 5) Return N/A if the state 2024 total is zero.",
+    "Reusable Dynamic Rule": "StateGrowth(FL) = SUM(2025 Acres where State=FL) / SUM(2024 Acres where State=FL) - 1"
+  },
+  {
+    "ID": "113",
+    "Category": "State",
+    "Difficulty": "Hard",
+    "Question": "What percentage of portfolio 2025 acres came from FL?",
+    "Exact Answer": "0.00%.",
+    "Validation Logic": "State 2025 Acres / portfolio total.",
+    "Step-by-Step Calculation": "1) Parse state from CountyState. 2) Sum 2025 Acres for FL. 3) Sum 2025 Acres for all customers. 4) Divide the FL total by the portfolio total. 5) Format as a percentage to 2 decimals.",
+    "Reusable Dynamic Rule": "StateShare(FL) = SUM(2025 Acres where State=FL) / SUM(all 2025 Acres)"
+  },
+  {
+    "ID": "114",
+    "Category": "Customer",
+    "Difficulty": "Medium",
+    "Question": "Who ranks #1 by 2025 acres?",
+    "Exact Answer": "DONNY DELINE - 1000006621 with 8,073.20 acres (Phillips, AR, D11, R03).",
+    "Validation Logic": "Rank customers by 2025 Acres.",
+    "Step-by-Step Calculation": "1) Treat blank 2025 acreage as 0. 2) Sort all customer rows by 2025 Acres descending. 3) Use Customer_Group__c as the entity and keep CountyState, District, and Region as attributes. 4) Return the customer at rank 1; do not deduplicate.",
+    "Reusable Dynamic Rule": "SORTBY(Customer rows, 2025 Acres, descending) \u2192 row 1"
+  },
+  {
+    "ID": "115",
+    "Category": "Customer",
+    "Difficulty": "Medium",
+    "Question": "Who ranks #2 by 2025 acres?",
+    "Exact Answer": "SOUTHERN PLANTING CO - 1000006484 with 7,145.40 acres (Bolivar, MS, D11, R03).",
+    "Validation Logic": "Rank customers by 2025 Acres.",
+    "Step-by-Step Calculation": "1) Treat blank 2025 acreage as 0. 2) Sort all customer rows by 2025 Acres descending. 3) Use Customer_Group__c as the entity and keep CountyState, District, and Region as attributes. 4) Return the customer at rank 2; do not deduplicate.",
+    "Reusable Dynamic Rule": "SORTBY(Customer rows, 2025 Acres, descending) \u2192 row 2"
+  },
+  {
+    "ID": "116",
+    "Category": "Customer",
+    "Difficulty": "Medium",
+    "Question": "Who ranks #3 by 2025 acres?",
+    "Exact Answer": "CRAIG ZAUNBRECHER - 1000009001 with 6,438.98 acres (Jefferson Davis, LA, D13, R03).",
+    "Validation Logic": "Rank customers by 2025 Acres.",
+    "Step-by-Step Calculation": "1) Treat blank 2025 acreage as 0. 2) Sort all customer rows by 2025 Acres descending. 3) Use Customer_Group__c as the entity and keep CountyState, District, and Region as attributes. 4) Return the customer at rank 3; do not deduplicate.",
+    "Reusable Dynamic Rule": "SORTBY(Customer rows, 2025 Acres, descending) \u2192 row 3"
+  },
+  {
+    "ID": "117",
+    "Category": "Customer",
+    "Difficulty": "Medium",
+    "Question": "Who ranks #4 by 2025 acres?",
+    "Exact Answer": "MP FARMS - 1000006029 with 6,387.40 acres (Tunica, MS, D11, R03).",
+    "Validation Logic": "Rank customers by 2025 Acres.",
+    "Step-by-Step Calculation": "1) Treat blank 2025 acreage as 0. 2) Sort all customer rows by 2025 Acres descending. 3) Use Customer_Group__c as the entity and keep CountyState, District, and Region as attributes. 4) Return the customer at rank 4; do not deduplicate.",
+    "Reusable Dynamic Rule": "SORTBY(Customer rows, 2025 Acres, descending) \u2192 row 4"
+  },
+  {
+    "ID": "118",
+    "Category": "Customer",
+    "Difficulty": "Medium",
+    "Question": "Who ranks #5 by 2025 acres?",
+    "Exact Answer": "DON L KITTLER FARMS - 1000004803 with 6,064.00 acres (Lonoke, AR, D08, R02).",
+    "Validation Logic": "Rank customers by 2025 Acres.",
+    "Step-by-Step Calculation": "1) Treat blank 2025 acreage as 0. 2) Sort all customer rows by 2025 Acres descending. 3) Use Customer_Group__c as the entity and keep CountyState, District, and Region as attributes. 4) Return the customer at rank 5; do not deduplicate.",
+    "Reusable Dynamic Rule": "SORTBY(Customer rows, 2025 Acres, descending) \u2192 row 5"
+  },
+  {
+    "ID": "119",
+    "Category": "Customer",
+    "Difficulty": "Medium",
+    "Question": "Who ranks #6 by 2025 acres?",
+    "Exact Answer": "STOESSER AG CO. - 1000005586 with 5,847.10 acres (Liberty, TX, D15, R03).",
+    "Validation Logic": "Rank customers by 2025 Acres.",
+    "Step-by-Step Calculation": "1) Treat blank 2025 acreage as 0. 2) Sort all customer rows by 2025 Acres descending. 3) Use Customer_Group__c as the entity and keep CountyState, District, and Region as attributes. 4) Return the customer at rank 6; do not deduplicate.",
+    "Reusable Dynamic Rule": "SORTBY(Customer rows, 2025 Acres, descending) \u2192 row 6"
+  },
+  {
+    "ID": "120",
+    "Category": "Customer",
+    "Difficulty": "Medium",
+    "Question": "Who ranks #7 by 2025 acres?",
+    "Exact Answer": "SAMSON FARM PARTNERSHIP - 1000008379 with 5,300.00 acres (Desha, AR, D10, R02).",
+    "Validation Logic": "Rank customers by 2025 Acres.",
+    "Step-by-Step Calculation": "1) Treat blank 2025 acreage as 0. 2) Sort all customer rows by 2025 Acres descending. 3) Use Customer_Group__c as the entity and keep CountyState, District, and Region as attributes. 4) Return the customer at rank 7; do not deduplicate.",
+    "Reusable Dynamic Rule": "SORTBY(Customer rows, 2025 Acres, descending) \u2192 row 7"
+  },
+  {
+    "ID": "121",
+    "Category": "Customer",
+    "Difficulty": "Medium",
+    "Question": "Who ranks #8 by 2025 acres?",
+    "Exact Answer": "DOIN R BOWERS III - 1000008996 with 5,068.00 acres (Clay, AR, D02, R01).",
+    "Validation Logic": "Rank customers by 2025 Acres.",
+    "Step-by-Step Calculation": "1) Treat blank 2025 acreage as 0. 2) Sort all customer rows by 2025 Acres descending. 3) Use Customer_Group__c as the entity and keep CountyState, District, and Region as attributes. 4) Return the customer at rank 8; do not deduplicate.",
+    "Reusable Dynamic Rule": "SORTBY(Customer rows, 2025 Acres, descending) \u2192 row 8"
+  },
+  {
+    "ID": "122",
+    "Category": "Customer",
+    "Difficulty": "Medium",
+    "Question": "Who ranks #9 by 2025 acres?",
+    "Exact Answer": "GRAHAM BROTHERS - 1000004816 with 4,823.40 acres (Greene, AR, D03, R01).",
+    "Validation Logic": "Rank customers by 2025 Acres.",
+    "Step-by-Step Calculation": "1) Treat blank 2025 acreage as 0. 2) Sort all customer rows by 2025 Acres descending. 3) Use Customer_Group__c as the entity and keep CountyState, District, and Region as attributes. 4) Return the customer at rank 9; do not deduplicate.",
+    "Reusable Dynamic Rule": "SORTBY(Customer rows, 2025 Acres, descending) \u2192 row 9"
+  },
+  {
+    "ID": "123",
+    "Category": "Customer",
+    "Difficulty": "Medium",
+    "Question": "Who ranks #10 by 2025 acres?",
+    "Exact Answer": "KENNETH BELL FARMS - 1000006414 with 4,513.00 acres (Stoddard, MO, D01, R01).",
+    "Validation Logic": "Rank customers by 2025 Acres.",
+    "Step-by-Step Calculation": "1) Treat blank 2025 acreage as 0. 2) Sort all customer rows by 2025 Acres descending. 3) Use Customer_Group__c as the entity and keep CountyState, District, and Region as attributes. 4) Return the customer at rank 10; do not deduplicate.",
+    "Reusable Dynamic Rule": "SORTBY(Customer rows, 2025 Acres, descending) \u2192 row 10"
+  },
+  {
+    "ID": "124",
+    "Category": "Customer",
+    "Difficulty": "Hard",
+    "Question": "Who ranks #1 for largest acreage increase from 2024 to 2025?",
+    "Exact Answer": "SOUTHERN PLANTING CO - 1000006484: +4,345.40 acres, from 2,800.00 to 7,145.40.",
+    "Validation Logic": "Rank 2025 minus 2024 change descending.",
+    "Step-by-Step Calculation": "1) For every customer calculate Change = 2025 Acres - 2024 Acres. 2) Sort Change descending. 3) Return rank 1, including customer name, both year values, and the change. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SORTBY(Customer, 2025 Acres - 2024 Acres, descending) \u2192 row 1"
+  },
+  {
+    "ID": "125",
+    "Category": "Customer",
+    "Difficulty": "Hard",
+    "Question": "Who ranks #2 for largest acreage increase from 2024 to 2025?",
+    "Exact Answer": "JEMW FARMS LLC - 1000013990: +1,780.40 acres, from 0.00 to 1,780.40.",
+    "Validation Logic": "Rank 2025 minus 2024 change descending.",
+    "Step-by-Step Calculation": "1) For every customer calculate Change = 2025 Acres - 2024 Acres. 2) Sort Change descending. 3) Return rank 2, including customer name, both year values, and the change. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SORTBY(Customer, 2025 Acres - 2024 Acres, descending) \u2192 row 2"
+  },
+  {
+    "ID": "126",
+    "Category": "Customer",
+    "Difficulty": "Hard",
+    "Question": "Who ranks #3 for largest acreage increase from 2024 to 2025?",
+    "Exact Answer": "JASON WALLER - 1000008769: +1,700.00 acres, from 2.00 to 1,702.00.",
+    "Validation Logic": "Rank 2025 minus 2024 change descending.",
+    "Step-by-Step Calculation": "1) For every customer calculate Change = 2025 Acres - 2024 Acres. 2) Sort Change descending. 3) Return rank 3, including customer name, both year values, and the change. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SORTBY(Customer, 2025 Acres - 2024 Acres, descending) \u2192 row 3"
+  },
+  {
+    "ID": "127",
+    "Category": "Customer",
+    "Difficulty": "Hard",
+    "Question": "Who ranks #4 for largest acreage increase from 2024 to 2025?",
+    "Exact Answer": "RONNIE BERRY - 1000007230: +1,350.20 acres, from 2,652.00 to 4,002.20.",
+    "Validation Logic": "Rank 2025 minus 2024 change descending.",
+    "Step-by-Step Calculation": "1) For every customer calculate Change = 2025 Acres - 2024 Acres. 2) Sort Change descending. 3) Return rank 4, including customer name, both year values, and the change. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SORTBY(Customer, 2025 Acres - 2024 Acres, descending) \u2192 row 4"
+  },
+  {
+    "ID": "128",
+    "Category": "Customer",
+    "Difficulty": "Hard",
+    "Question": "Who ranks #5 for largest acreage increase from 2024 to 2025?",
+    "Exact Answer": "KENNEDY RICE DRYERS - 1000005496: +1,346.00 acres, from 0.00 to 1,346.00.",
+    "Validation Logic": "Rank 2025 minus 2024 change descending.",
+    "Step-by-Step Calculation": "1) For every customer calculate Change = 2025 Acres - 2024 Acres. 2) Sort Change descending. 3) Return rank 5, including customer name, both year values, and the change. 4) Round acreage to 2 decimals.",
+    "Reusable Dynamic Rule": "SORTBY(Customer, 2025 Acres - 2024 Acres, descending) \u2192 row 5"
+  },
+  {
+    "ID": "129",
+    "Category": "Customer",
+    "Difficulty": "Hard",
+    "Question": "Who ranks #1 for largest acreage decline from 2024 to 2025?",
+    "Exact Answer": "DAVID OAKES - 1000005163: -6,468.00 acres, from 6,468.00 to 0.00.",
+    "Validation Logic": "Rank 2025 minus 2024 change ascending.",
+    "Step-by-Step Calculation": "1) Calculate Change = 2025 Acres - 2024 Acres for every customer. 2) Sort Change ascending so the most negative value is first. 3) Return rank 1 with both year values. 4) Keep the negative sign on the reported change.",
+    "Reusable Dynamic Rule": "SORTBY(Customer, 2025 Acres - 2024 Acres, ascending) \u2192 row 1"
+  },
+  {
+    "ID": "130",
+    "Category": "Customer",
+    "Difficulty": "Hard",
+    "Question": "Who ranks #2 for largest acreage decline from 2024 to 2025?",
+    "Exact Answer": "WENDREW FARMS - 1000012515: -4,628.00 acres, from 4,628.00 to 0.00.",
+    "Validation Logic": "Rank 2025 minus 2024 change ascending.",
+    "Step-by-Step Calculation": "1) Calculate Change = 2025 Acres - 2024 Acres for every customer. 2) Sort Change ascending so the most negative value is first. 3) Return rank 2 with both year values. 4) Keep the negative sign on the reported change.",
+    "Reusable Dynamic Rule": "SORTBY(Customer, 2025 Acres - 2024 Acres, ascending) \u2192 row 2"
+  },
+  {
+    "ID": "131",
+    "Category": "Customer",
+    "Difficulty": "Hard",
+    "Question": "Who ranks #3 for largest acreage decline from 2024 to 2025?",
+    "Exact Answer": "SAMSON FARM PARTNERSHIP - 1000008379: -4,382.00 acres, from 9,682.00 to 5,300.00.",
+    "Validation Logic": "Rank 2025 minus 2024 change ascending.",
+    "Step-by-Step Calculation": "1) Calculate Change = 2025 Acres - 2024 Acres for every customer. 2) Sort Change ascending so the most negative value is first. 3) Return rank 3 with both year values. 4) Keep the negative sign on the reported change.",
+    "Reusable Dynamic Rule": "SORTBY(Customer, 2025 Acres - 2024 Acres, ascending) \u2192 row 3"
+  },
+  {
+    "ID": "132",
+    "Category": "Customer",
+    "Difficulty": "Hard",
+    "Question": "Who ranks #4 for largest acreage decline from 2024 to 2025?",
+    "Exact Answer": "B & G AGRI - 1000004994: -3,962.00 acres, from 6,092.00 to 2,130.00.",
+    "Validation Logic": "Rank 2025 minus 2024 change ascending.",
+    "Step-by-Step Calculation": "1) Calculate Change = 2025 Acres - 2024 Acres for every customer. 2) Sort Change ascending so the most negative value is first. 3) Return rank 4 with both year values. 4) Keep the negative sign on the reported change.",
+    "Reusable Dynamic Rule": "SORTBY(Customer, 2025 Acres - 2024 Acres, ascending) \u2192 row 4"
+  },
+  {
+    "ID": "133",
+    "Category": "Customer",
+    "Difficulty": "Hard",
+    "Question": "Who ranks #5 for largest acreage decline from 2024 to 2025?",
+    "Exact Answer": "GRIFFIN FARMS - 1000010176: -3,690.00 acres, from 3,870.00 to 180.00.",
+    "Validation Logic": "Rank 2025 minus 2024 change ascending.",
+    "Step-by-Step Calculation": "1) Calculate Change = 2025 Acres - 2024 Acres for every customer. 2) Sort Change ascending so the most negative value is first. 3) Return rank 5 with both year values. 4) Keep the negative sign on the reported change.",
+    "Reusable Dynamic Rule": "SORTBY(Customer, 2025 Acres - 2024 Acres, ascending) \u2192 row 5"
+  },
+  {
+    "ID": "134",
+    "Category": "Opportunity",
+    "Difficulty": "Hard",
+    "Question": "Who ranks #1 for largest opportunity gap?",
+    "Exact Answer": "DAVID OAKES - 1000005163 with a 6,468.00 acre gap.",
+    "Validation Logic": "Rank Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) For each customer calculate Gap = Oppor - 2025 Acres. 2) Treat blank numeric cells as 0. 3) Sort Gap descending. 4) Return the customer at rank 1 and the gap rounded to 2 decimals.",
+    "Reusable Dynamic Rule": "SORTBY(Customer, Oppor - 2025 Acres, descending) \u2192 row 1"
+  },
+  {
+    "ID": "135",
+    "Category": "Opportunity",
+    "Difficulty": "Hard",
+    "Question": "Who ranks #2 for largest opportunity gap?",
+    "Exact Answer": "SWIFT DITCH FARMS - 1000006633 with a 5,658.00 acre gap.",
+    "Validation Logic": "Rank Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) For each customer calculate Gap = Oppor - 2025 Acres. 2) Treat blank numeric cells as 0. 3) Sort Gap descending. 4) Return the customer at rank 2 and the gap rounded to 2 decimals.",
+    "Reusable Dynamic Rule": "SORTBY(Customer, Oppor - 2025 Acres, descending) \u2192 row 2"
+  },
+  {
+    "ID": "136",
+    "Category": "Opportunity",
+    "Difficulty": "Hard",
+    "Question": "Who ranks #3 for largest opportunity gap?",
+    "Exact Answer": "GRIFFIN FARMS - 1000010176 with a 5,017.20 acre gap.",
+    "Validation Logic": "Rank Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) For each customer calculate Gap = Oppor - 2025 Acres. 2) Treat blank numeric cells as 0. 3) Sort Gap descending. 4) Return the customer at rank 3 and the gap rounded to 2 decimals.",
+    "Reusable Dynamic Rule": "SORTBY(Customer, Oppor - 2025 Acres, descending) \u2192 row 3"
+  },
+  {
+    "ID": "137",
+    "Category": "Opportunity",
+    "Difficulty": "Hard",
+    "Question": "Who ranks #4 for largest opportunity gap?",
+    "Exact Answer": "CAVINESS FARMS - 1000005328 with a 4,698.00 acre gap.",
+    "Validation Logic": "Rank Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) For each customer calculate Gap = Oppor - 2025 Acres. 2) Treat blank numeric cells as 0. 3) Sort Gap descending. 4) Return the customer at rank 4 and the gap rounded to 2 decimals.",
+    "Reusable Dynamic Rule": "SORTBY(Customer, Oppor - 2025 Acres, descending) \u2192 row 4"
+  },
+  {
+    "ID": "138",
+    "Category": "Opportunity",
+    "Difficulty": "Hard",
+    "Question": "Who ranks #5 for largest opportunity gap?",
+    "Exact Answer": "T AND J FARMS - 1000009902 with a 4,679.99 acre gap.",
+    "Validation Logic": "Rank Opportunity minus 2025 Acres.",
+    "Step-by-Step Calculation": "1) For each customer calculate Gap = Oppor - 2025 Acres. 2) Treat blank numeric cells as 0. 3) Sort Gap descending. 4) Return the customer at rank 5 and the gap rounded to 2 decimals.",
+    "Reusable Dynamic Rule": "SORTBY(Customer, Oppor - 2025 Acres, descending) \u2192 row 5"
+  },
+  {
+    "ID": "139",
+    "Category": "Product Mix",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 Full Page acres?",
+    "Exact Answer": "678,819.92 acres, representing 65.78% of 2025 acres.",
+    "Validation Logic": "Sum product acres and divide by total 2025 Acres.",
+    "Step-by-Step Calculation": "1) Select the 2025 Full Page column. 2) Treat blanks as 0 and sum all customer rows. 3) Sum total 2025 Acres. 4) Divide the Full Page total by total 2025 Acres for its mix share. 5) Round acres and percentage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUM('RiceTec Sales & Opportunity Nav'!N2:N2416); Share = SUM('RiceTec Sales & Opportunity Nav'!N2:N2416)/SUM('RiceTec Sales & Opportunity Nav'!G2:G2416)"
+  },
+  {
+    "ID": "140",
+    "Category": "Product Mix",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 Max-Ace acres?",
+    "Exact Answer": "94,798.62 acres, representing 9.19% of 2025 acres.",
+    "Validation Logic": "Sum product acres and divide by total 2025 Acres.",
+    "Step-by-Step Calculation": "1) Select the 2025 Max-Ace column. 2) Treat blanks as 0 and sum all customer rows. 3) Sum total 2025 Acres. 4) Divide the Max-Ace total by total 2025 Acres for its mix share. 5) Round acres and percentage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUM('RiceTec Sales & Opportunity Nav'!O2:O2416); Share = SUM('RiceTec Sales & Opportunity Nav'!O2:O2416)/SUM('RiceTec Sales & Opportunity Nav'!G2:G2416)"
+  },
+  {
+    "ID": "141",
+    "Category": "Product Mix",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 Non-HT acres?",
+    "Exact Answer": "223,579.63 acres, representing 21.67% of 2025 acres.",
+    "Validation Logic": "Sum product acres and divide by total 2025 Acres.",
+    "Step-by-Step Calculation": "1) Select the 2025 Non-HT column. 2) Treat blanks as 0 and sum all customer rows. 3) Sum total 2025 Acres. 4) Divide the Non-HT total by total 2025 Acres for its mix share. 5) Round acres and percentage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUM('RiceTec Sales & Opportunity Nav'!P2:P2416); Share = SUM('RiceTec Sales & Opportunity Nav'!P2:P2416)/SUM('RiceTec Sales & Opportunity Nav'!G2:G2416)"
+  },
+  {
+    "ID": "142",
+    "Category": "Product Mix",
+    "Difficulty": "Medium",
+    "Question": "What are total 2025 Non-HT MG acres?",
+    "Exact Answer": "34,747.51 acres, representing 3.37% of 2025 acres.",
+    "Validation Logic": "Sum product acres and divide by total 2025 Acres.",
+    "Step-by-Step Calculation": "1) Select the 2025 Non-HT MG column. 2) Treat blanks as 0 and sum all customer rows. 3) Sum total 2025 Acres. 4) Divide the Non-HT MG total by total 2025 Acres for its mix share. 5) Round acres and percentage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUM('RiceTec Sales & Opportunity Nav'!Q2:Q2416); Share = SUM('RiceTec Sales & Opportunity Nav'!Q2:Q2416)/SUM('RiceTec Sales & Opportunity Nav'!G2:G2416)"
+  },
+  {
+    "ID": "143",
+    "Category": "Data Quality",
+    "Difficulty": "Hard",
+    "Question": "Do the four product categories reconcile to 2025 acres for every customer?",
+    "Exact Answer": "Yes. All 2415 rows reconcile within 0.01 acre.",
+    "Validation Logic": "Compare product sum with 2025 Acres per row.",
+    "Step-by-Step Calculation": "1) For each customer calculate Product Total = Full Page + Max-Ace + Non-HT + Non-HT MG, treating blanks as 0. 2) Calculate absolute difference from 2025 Acres. 3) Flag rows where the difference is greater than 0.01 acre. 4) Count flags; zero means full reconciliation.",
+    "Reusable Dynamic Rule": "SUMPRODUCT(--(ABS('RiceTec Sales & Opportunity Nav'!N2:N2416+'RiceTec Sales & Opportunity Nav'!O2:O2416+'RiceTec Sales & Opportunity Nav'!P2:P2416+'RiceTec Sales & Opportunity Nav'!Q2:Q2416-'RiceTec Sales & Opportunity Nav'!G2:G2416)>0.01))"
+  },
+  {
+    "ID": "144",
+    "Category": "Loyalty",
+    "Difficulty": "Medium",
+    "Question": "How many customers have Super Loyalty=Yes?",
+    "Exact Answer": "507 customers totaling 601,057.79 2025 acres.",
+    "Validation Logic": "Group by Super Loyalty.",
+    "Step-by-Step Calculation": "1) Normalize blank Super Loyalty cells to the label Blank. 2) Filter Super Loyalty to Yes. 3) Count all matching customer rows. 4) Sum their 2025 Acres, treating blanks as 0. 5) Report both count and acreage.",
+    "Reusable Dynamic Rule": "COUNTIFS('RiceTec Sales & Opportunity Nav'!T2:T2416,\"Yes\"); SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!T2:T2416,\"Yes\")"
+  },
+  {
+    "ID": "145",
+    "Category": "Loyalty",
+    "Difficulty": "Medium",
+    "Question": "How many customers have Super Loyalty=No?",
+    "Exact Answer": "1624 customers totaling 409,326.58 2025 acres.",
+    "Validation Logic": "Group by Super Loyalty.",
+    "Step-by-Step Calculation": "1) Normalize blank Super Loyalty cells to the label Blank. 2) Filter Super Loyalty to No. 3) Count all matching customer rows. 4) Sum their 2025 Acres, treating blanks as 0. 5) Report both count and acreage.",
+    "Reusable Dynamic Rule": "COUNTIFS('RiceTec Sales & Opportunity Nav'!T2:T2416,\"No\"); SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!T2:T2416,\"No\")"
+  },
+  {
+    "ID": "146",
+    "Category": "Loyalty",
+    "Difficulty": "Medium",
+    "Question": "How many customers have Super Loyalty=Blank?",
+    "Exact Answer": "284 customers totaling 21,561.31 2025 acres.",
+    "Validation Logic": "Group by Super Loyalty.",
+    "Step-by-Step Calculation": "1) Normalize blank Super Loyalty cells to the label Blank. 2) Filter Super Loyalty to Blank. 3) Count all matching customer rows. 4) Sum their 2025 Acres, treating blanks as 0. 5) Report both count and acreage.",
+    "Reusable Dynamic Rule": "Count blank 'RiceTec Sales & Opportunity Nav'!T2:T2416; sum matching 'RiceTec Sales & Opportunity Nav'!G2:G2416"
+  },
+  {
+    "ID": "147",
+    "Category": "Loyalty",
+    "Difficulty": "Hard",
+    "Question": "What share of 2025 acres comes from Super Loyalty=Yes customers?",
+    "Exact Answer": "58.25%, or 601,057.79 acres.",
+    "Validation Logic": "Super Loyalty Yes acres / portfolio acres.",
+    "Step-by-Step Calculation": "1) Filter Super Loyalty to Yes. 2) Sum 2025 Acres for matching customers. 3) Sum portfolio 2025 Acres. 4) Divide the Yes-group total by the portfolio total. 5) Format as a percentage to 2 decimals.",
+    "Reusable Dynamic Rule": "SUMIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!T2:T2416,\"Yes\")/SUM('RiceTec Sales & Opportunity Nav'!G2:G2416)"
+  },
+  {
+    "ID": "148",
+    "Category": "Loyalty",
+    "Difficulty": "Hard",
+    "Question": "How does average acreage compare for Super Loyalty Yes versus No?",
+    "Exact Answer": "Yes: 1,185.52 acres; No: 252.05 acres; Yes is 4.70x higher.",
+    "Validation Logic": "Compare average 2025 Acres by status.",
+    "Step-by-Step Calculation": "1) Filter Super Loyalty=Yes and average 2025 Acres across all matching customers, including zero values. 2) Repeat for Super Loyalty=No. 3) Divide the Yes average by the No average for the multiple. 4) Round averages and multiple to 2 decimals.",
+    "Reusable Dynamic Rule": "AVERAGEIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!T2:T2416,\"Yes\") vs AVERAGEIFS('RiceTec Sales & Opportunity Nav'!G2:G2416,'RiceTec Sales & Opportunity Nav'!T2:T2416,\"No\")"
+  },
+  {
+    "ID": "149",
+    "Category": "Loyalty",
+    "Difficulty": "Hard",
+    "Question": "How many customers have Loyalty=Yes, Volume=Yes, and Super Loyalty=Yes?",
+    "Exact Answer": "400 customers totaling 570,696.06 2025 acres.",
+    "Validation Logic": "Count the exact status combination.",
+    "Step-by-Step Calculation": "1) Normalize empty status cells to Blank. 2) Apply all three filters simultaneously: Loyalty=Yes, Volume=Yes, Super Loyalty=Yes. 3) Count matching customer rows. 4) Sum their 2025 Acres. 5) Report count and acreage.",
+    "Reusable Dynamic Rule": "COUNT/SUM rows where Loyalty=Yes AND Volume=Yes AND Super=Yes"
+  },
+  {
+    "ID": "150",
+    "Category": "Loyalty",
+    "Difficulty": "Hard",
+    "Question": "How many customers have Loyalty=Yes, Volume=Yes, and Super Loyalty=No?",
+    "Exact Answer": "90 customers totaling 106,983.53 2025 acres.",
+    "Validation Logic": "Count the exact status combination.",
+    "Step-by-Step Calculation": "1) Normalize empty status cells to Blank. 2) Apply all three filters simultaneously: Loyalty=Yes, Volume=Yes, Super Loyalty=No. 3) Count matching customer rows. 4) Sum their 2025 Acres. 5) Report count and acreage.",
+    "Reusable Dynamic Rule": "COUNT/SUM rows where Loyalty=Yes AND Volume=Yes AND Super=No"
+  },
+  {
+    "ID": "151",
+    "Category": "Loyalty",
+    "Difficulty": "Hard",
+    "Question": "How many customers have Loyalty=Yes, Volume=No, and Super Loyalty=Yes?",
+    "Exact Answer": "107 customers totaling 30,361.73 2025 acres.",
+    "Validation Logic": "Count the exact status combination.",
+    "Step-by-Step Calculation": "1) Normalize empty status cells to Blank. 2) Apply all three filters simultaneously: Loyalty=Yes, Volume=No, Super Loyalty=Yes. 3) Count matching customer rows. 4) Sum their 2025 Acres. 5) Report count and acreage.",
+    "Reusable Dynamic Rule": "COUNT/SUM rows where Loyalty=Yes AND Volume=No AND Super=Yes"
+  },
+  {
+    "ID": "152",
+    "Category": "Loyalty",
+    "Difficulty": "Hard",
+    "Question": "How many customers have Loyalty=Yes, Volume=No, and Super Loyalty=No?",
+    "Exact Answer": "73 customers totaling 15,316.78 2025 acres.",
+    "Validation Logic": "Count the exact status combination.",
+    "Step-by-Step Calculation": "1) Normalize empty status cells to Blank. 2) Apply all three filters simultaneously: Loyalty=Yes, Volume=No, Super Loyalty=No. 3) Count matching customer rows. 4) Sum their 2025 Acres. 5) Report count and acreage.",
+    "Reusable Dynamic Rule": "COUNT/SUM rows where Loyalty=Yes AND Volume=No AND Super=No"
+  },
+  {
+    "ID": "153",
+    "Category": "Loyalty",
+    "Difficulty": "Hard",
+    "Question": "How many customers have Loyalty=No, Volume=No, and Super Loyalty=No?",
+    "Exact Answer": "536 customers totaling 269,027.38 2025 acres.",
+    "Validation Logic": "Count the exact status combination.",
+    "Step-by-Step Calculation": "1) Normalize empty status cells to Blank. 2) Apply all three filters simultaneously: Loyalty=No, Volume=No, Super Loyalty=No. 3) Count matching customer rows. 4) Sum their 2025 Acres. 5) Report count and acreage.",
+    "Reusable Dynamic Rule": "COUNT/SUM rows where Loyalty=No AND Volume=No AND Super=No"
+  },
+  {
+    "ID": "154",
+    "Category": "Loyalty",
+    "Difficulty": "Hard",
+    "Question": "How many customers have Loyalty=Blank, Volume=Blank, and Super Loyalty=No?",
+    "Exact Answer": "925 customers totaling 17,998.89 2025 acres.",
+    "Validation Logic": "Count the exact status combination.",
+    "Step-by-Step Calculation": "1) Normalize empty status cells to Blank. 2) Apply all three filters simultaneously: Loyalty=Blank, Volume=Blank, Super Loyalty=No. 3) Count matching customer rows. 4) Sum their 2025 Acres. 5) Report count and acreage.",
+    "Reusable Dynamic Rule": "COUNT/SUM rows where Loyalty=Blank AND Volume=Blank AND Super=No"
+  },
+  {
+    "ID": "155",
+    "Category": "Loyalty",
+    "Difficulty": "Hard",
+    "Question": "How many customers have Loyalty=Blank, Volume=Blank, and Super Loyalty=Blank?",
+    "Exact Answer": "284 customers totaling 21,561.31 2025 acres.",
+    "Validation Logic": "Count the exact status combination.",
+    "Step-by-Step Calculation": "1) Normalize empty status cells to Blank. 2) Apply all three filters simultaneously: Loyalty=Blank, Volume=Blank, Super Loyalty=Blank. 3) Count matching customer rows. 4) Sum their 2025 Acres. 5) Report count and acreage.",
+    "Reusable Dynamic Rule": "COUNT/SUM rows where Loyalty=Blank AND Volume=Blank AND Super=Blank"
+  },
+  {
+    "ID": "156",
+    "Category": "Business Insight",
+    "Difficulty": "Hard",
+    "Question": "What share of 2025 acres is held by the top 10 customers?",
+    "Exact Answer": "5.78%, or 59,660.48 acres.",
+    "Validation Logic": "Top 10 Acres / portfolio Acres.",
+    "Step-by-Step Calculation": "1) Sort all customers by 2025 Acres descending. 2) Sum the first 10 customers' 2025 Acres. 3) Sum portfolio 2025 Acres. 4) Divide the top-10 sum by the portfolio total. 5) Return both acres and percentage.",
+    "Reusable Dynamic Rule": "SUM(TOP 10 by 2025 Acres) / SUM(all 2025 Acres)"
+  },
+  {
+    "ID": "157",
+    "Category": "Business Insight",
+    "Difficulty": "Hard",
+    "Question": "What share of 2025 acres is held by the top 50 customers?",
+    "Exact Answer": "19.40%, or 200,211.63 acres.",
+    "Validation Logic": "Top 50 Acres / portfolio Acres.",
+    "Step-by-Step Calculation": "1) Sort all customers by 2025 Acres descending. 2) Sum the first 50 customers' 2025 Acres. 3) Sum portfolio 2025 Acres. 4) Divide the top-50 sum by the portfolio total. 5) Return both acres and percentage.",
+    "Reusable Dynamic Rule": "SUM(TOP 50 by 2025 Acres) / SUM(all 2025 Acres)"
+  }
+]

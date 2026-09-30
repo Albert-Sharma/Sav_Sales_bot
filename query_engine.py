@@ -11,6 +11,7 @@ import numpy as np
 from typing import Dict, Any, List, Optional, Tuple
 from dotenv import load_dotenv
 from data_engine import SalesDataEngine
+import knowledge_bank
 
 # Auto-load private environment variables from .env
 load_dotenv()
@@ -34,7 +35,24 @@ class QueryEngine:
         if any(q_lower == g for g in ["hi", "hello", "hey", "help", "start", "menu"]):
             return self._handle_help_query()
 
-        # 2. Advanced Multi-Condition Filter Queries & Consecutive Growth
+        # 2. Check Knowledge Bank benchmark resolver for dynamic calculation and step-by-step methodology
+        kb_res = knowledge_bank.resolve_benchmark_query(q, self.df)
+        if kb_res is not None:
+            resp_md = knowledge_bank.format_benchmark_response(kb_res)
+            return {
+                "text": resp_md,
+                "markdown": resp_md,
+                "data": kb_res.get("metrics"),
+                "table": None,
+                "chart": None,
+                "metric_cards": [
+                    {"label": "Calculation", "value": f"ID #{kb_res['id']}"},
+                    {"label": "Category", "value": kb_res["category"]},
+                    {"label": "Records Evaluated", "value": f"{kb_res.get('total_records_evaluated', len(self.df)):,}"}
+                ]
+            }
+
+        # 3. Advanced Multi-Condition Filter Queries & Consecutive Growth
         filter_res = self._handle_multi_condition_query(q, q_lower)
         if filter_res is not None:
             return filter_res

@@ -42,7 +42,7 @@ class SalesDataEngine:
         # Split County and State
         def extract_county_state(cs_str: str) -> Tuple[str, str]:
             if ',' in cs_str:
-                parts = cs_str.split(',')
+                parts = cs_str.rsplit(',', 1)
                 return parts[0].strip(), parts[1].strip().upper()
             return cs_str.strip(), ""
 
@@ -69,7 +69,7 @@ class SalesDataEngine:
                 mask = df[yoy_col].abs() > 1000
                 df.loc[mask, yoy_col] = np.nan
 
-        # Clean numeric columns (fill NaNs where appropriate or keep numeric)
+        # Clean numeric columns (fill NaNs with 0.0 for reliable summation and filtering)
         num_cols = [
             '2023 Acres', '2024 Acres', '2025 Acres',
             'Max_Acres_Per_Customer', 'Max_Yearly_Acres_Per_Customer',
@@ -78,14 +78,14 @@ class SalesDataEngine:
         ]
         for col in num_cols:
             if col in df.columns:
-                df[col] = pd.to_numeric(df[col], errors='coerce')
+                df[col] = pd.to_numeric(df[col], errors='coerce').fillna(0.0)
 
-        # Clean rebate status columns (Standardize to 'Yes', 'No')
+        # Clean rebate status columns (Standardize to 'Yes', 'No', and 'Blank')
         rebate_cols = ['Loyalty Rebate Status', 'Volume Rebate Status', 'Super Loyalty']
         for col in rebate_cols:
             if col in df.columns:
                 df[col] = df[col].astype(str).str.strip().str.capitalize()
-                df[col] = df[col].replace({'Nan': 'No', 'None': 'No', '': 'No', 'False': 'No', 'True': 'Yes'})
+                df[col] = df[col].replace({'Nan': 'Blank', 'None': 'Blank', '': 'Blank', 'False': 'No', 'True': 'Yes'})
 
         # Derive Opportunity Gap (Oppor - 2025 Acres, if 2025 is less than Oppor)
         df['Opportunity_Gap'] = (df['Oppor'].fillna(0) - df['2025 Acres'].fillna(0)).clip(lower=0)
